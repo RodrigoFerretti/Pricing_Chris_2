@@ -1,0 +1,22 @@
+{
+  "name": "pricing_chris_2",
+  "version": "1.0.0",
+  "description": "Pricing Chris application for selling stones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodrigoFerretti/Pricing_Chris_2.git"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "Rodrigo Ferretti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RodrigoFerretti/Pricing_Chris_2/issues"
+  },
+  "homepage": "https://github.com/RodrigoFerretti/Pricing_Chris_2#readme"
+}
