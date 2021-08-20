@@ -10,7 +10,34 @@ var connection = mysql2_1.createConnection({
     password: process.env.db_password,
     database: process.env.db_schema
 });
-connection.query('SELECT * FROM `segment`', function (err, results, fields) {
-    var jsonResult = JSON.stringify(results, null, 2);
-    console.log(jsonResult);
-});
+var DbModel = /** @class */ (function () {
+    function DbModel() {
+        this.tableName = "segment";
+    }
+    DbModel.prototype.query = function () {
+        this.sqlStatement = "SELECT * FROM " + this.tableName;
+        return this;
+    };
+    DbModel.prototype.filter = function (modelObject) {
+        this.sqlStatement += " WHERE ";
+        for (var _i = 0, _a = Object.entries(modelObject); _i < _a.length; _i++) {
+            var _b = _a[_i], key = _b[0], value = _b[1];
+            this.sqlStatement += " " + this.tableName + "." + key + " == '" + value + "'";
+        }
+        return this;
+    };
+    DbModel.prototype.orderBy = function (modelColumn, direction) {
+        this.sqlStatement += " ORDER BY " + this.tableName + "." + modelColumn + " " + direction;
+    };
+    DbModel.prototype.all = function () {
+        connection.query(this.sqlStatement, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            console.log(result);
+        });
+    };
+    return DbModel;
+}());
+var segment = new DbModel;
+segment.query().all();

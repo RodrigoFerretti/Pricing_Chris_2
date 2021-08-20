@@ -1,5 +1,6 @@
 import { createConnection } from "mysql2"
 import { config as dotenv } from "dotenv"
+
 dotenv();
 
 const connection = createConnection({
@@ -10,11 +11,37 @@ const connection = createConnection({
     database: process.env.db_schema
 })
 
+class DbModel {
+    public sqlStatement!: string;
+    private tableName: string = `segment`;
 
-connection.query(
-    'SELECT * FROM `segment`',
-    function(err, results, fields) {
-        let jsonResult: string = JSON.stringify(results, null, 2);
-        console.log(jsonResult); 
+    public query() {
+        this.sqlStatement = `SELECT * FROM ${this.tableName}`;
+        return this;
     }
-  );
+
+    public filter(modelObject: object) {
+        this.sqlStatement += ` WHERE `;
+        for (let [key, value] of Object.entries(modelObject)) {
+            this.sqlStatement += ` ${this.tableName}.${key} == '${value}'`
+        }
+        return this;
+    }
+
+    public orderBy(modelColumn: string, direction: `ASC`|`DESC`) {
+        this.sqlStatement += ` ORDER BY ${this.tableName}.${modelColumn} ${direction}`
+    }
+
+    public all() {
+        connection.query(this.sqlStatement, function(err, result) {
+            if (err) {
+                throw err
+            }
+            console.log(result);
+        })
+    }
+}
+
+
+let segment: DbModel = new DbModel;
+segment.query().all();
