@@ -1,8 +1,8 @@
 import { DbModel } from "../../Setup/DbModel"
 
 
-export class SegmentModel extends DbModel {
-    tableName = `segment`;
+export class StateModel extends DbModel {
+    tableName = `state`;
     columns!: {
         id: number,
         name: string

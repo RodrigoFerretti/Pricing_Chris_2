@@ -28,6 +28,9 @@ export class DbModel {
         const connection = await new Database().connection()
         const [rows]: this[`columns`][] = await connection.query(this.sqlStatement);
         const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
+        if (rowsResponse == []) {
+            return Promise.reject(`no ${this.tableName} found`)
+        }
         return rowsResponse;
     }
 
@@ -37,6 +40,9 @@ export class DbModel {
         const [rows]: this[`columns`][] = await connection.query(this.sqlStatement);
         const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
         const firstRow: this[`columns`] | null = (rowsResponse[0] == undefined) ? null : rowsResponse[0];
+        if (firstRow == null) {
+            return Promise.reject(`${this.tableName} not found`)
+        }
         return firstRow;
     }
 }
