@@ -1,19 +1,4 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -51,68 +36,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var promise_1 = require("mysql2/promise");
-var dotenv_1 = require("dotenv");
+var Seller_1 = require("./Domain/DBModels/Seller");
 var main = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var connection, DbModel, SegmentModel, segment, response;
+    var segment, response;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                dotenv_1.config();
-                return [4 /*yield*/, promise_1.createConnection({
-                        host: process.env.db_host,
-                        port: parseInt(process.env.port),
-                        user: process.env.db_user,
-                        password: process.env.db_password,
-                        database: process.env.db_schema
-                    })];
+                segment = new Seller_1.SellerModel();
+                return [4 /*yield*/, segment.query().filter({ id: 1 }).orderBy("id", "DESC").first()];
             case 1:
-                connection = _a.sent();
-                DbModel = /** @class */ (function () {
-                    function DbModel() {
-                    }
-                    DbModel.prototype.query = function () {
-                        this.sqlStatement = "SELECT * FROM " + this.tableName;
-                        return this;
-                    };
-                    DbModel.prototype.filter = function (modelObject) {
-                        this.sqlStatement += " WHERE ";
-                        for (var _i = 0, _a = Object.entries(modelObject); _i < _a.length; _i++) {
-                            var _b = _a[_i], key = _b[0], value = _b[1];
-                            this.sqlStatement += " " + this.tableName + "." + key + " = '" + value + "'";
-                        }
-                        return this;
-                    };
-                    DbModel.prototype.orderBy = function (modelColumn, direction) {
-                        this.sqlStatement += " ORDER BY " + this.tableName + "." + modelColumn + " " + direction;
-                    };
-                    DbModel.prototype.all = function () {
-                        return __awaiter(this, void 0, void 0, function () {
-                            var _a, rows, fields;
-                            return __generator(this, function (_b) {
-                                switch (_b.label) {
-                                    case 0: return [4 /*yield*/, connection.query(this.sqlStatement)];
-                                    case 1:
-                                        _a = _b.sent(), rows = _a[0], fields = _a[1];
-                                        return [2 /*return*/, rows];
-                                }
-                            });
-                        });
-                    };
-                    return DbModel;
-                }());
-                SegmentModel = /** @class */ (function (_super) {
-                    __extends(SegmentModel, _super);
-                    function SegmentModel() {
-                        var _this = _super !== null && _super.apply(this, arguments) || this;
-                        _this.tableName = "segment";
-                        return _this;
-                    }
-                    return SegmentModel;
-                }(DbModel));
-                segment = new SegmentModel;
-                return [4 /*yield*/, segment.query().filter({ id: 1 }).all()];
-            case 2:
                 response = _a.sent();
                 console.log(response);
                 return [2 /*return*/];
@@ -120,5 +52,3 @@ var main = function () { return __awaiter(void 0, void 0, void 0, function () {
     });
 }); };
 main();
-var example;
-var randomVariable;
