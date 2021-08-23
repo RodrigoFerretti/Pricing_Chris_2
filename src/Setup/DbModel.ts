@@ -1,4 +1,5 @@
 import { Database } from "./DbConnect"
+import { Connection } from "mysql2/promise"
 
 
 export class DbModel {
@@ -25,24 +26,35 @@ export class DbModel {
     }
 
     public async all() {
-        const connection = await new Database().connection()
-        const [rows]: this[`columns`][] = await connection.query(this.sqlStatement);
-        const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
-        if (rowsResponse == []) {
-            return Promise.reject(`no ${this.tableName} found`)
+        try {
+            const connection: Connection = await new Database().connection()
+            const rows: this[`columns`][] = await connection.query(this.sqlStatement);
+            const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
+            if (rowsResponse == []) {
+                return Promise.reject(`no ${this.tableName} found`)
+            }
+            return rowsResponse;
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(`internal server error`);
         }
-        return rowsResponse;
     }
 
+
     public async first() {
-        const connection = await new Database().connection()
-        this.sqlStatement += ` LIMIT 1`;
-        const [rows]: this[`columns`][] = await connection.query(this.sqlStatement);
-        const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
-        const firstRow: this[`columns`] | null = (rowsResponse[0] == undefined) ? null : rowsResponse[0];
-        if (firstRow == null) {
-            return Promise.reject(`${this.tableName} not found`)
+        try {
+            this.sqlStatement += ` LIMIT 1`;
+            const connection = await new Database().connection()
+            const rows: this[`columns`][] = await connection.query(this.sqlStatement);
+            const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
+            const firstRow: this[`columns`] | null = (rowsResponse[0] == undefined) ? null : rowsResponse[0];
+            if (firstRow == null) {
+                return Promise.reject(`${this.tableName} not found`)
+            }
+            return firstRow;
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(`internal server error`);
         }
-        return firstRow;
     }
 }

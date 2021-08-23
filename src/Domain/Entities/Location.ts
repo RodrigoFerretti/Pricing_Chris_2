@@ -5,7 +5,7 @@ export class Location {
     stateId: number;
 
 
-    constructor(id: number, name: string, cityId: number, stateId: number) {
+    constructor({id, name, cityId, stateId}: Location) {
         this.id = id;
         this.name = name;
         this.cityId = cityId;

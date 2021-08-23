@@ -4,7 +4,7 @@ export class CityPrice {
     segmentId: number;
     price: number;
 
-    constructor(productId: number, cityId: number, segmentId: number, price: number) {
+    constructor({productId, cityId, segmentId, price}: CityPrice) {
         this.productId = productId;
         this.cityId = cityId;
         this.segmentId = segmentId;
