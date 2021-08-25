@@ -8,5 +8,6 @@ export class CityPriceModel extends DbModel {
         city_id: number,
         segment_id: number,
         price: number
-    }
-}
+    };
+
+};

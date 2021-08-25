@@ -6,5 +6,5 @@ export class SegmentModel extends DbModel {
     columns!: {
         id: number,
         name: string
-    }
-}
+    };
+};

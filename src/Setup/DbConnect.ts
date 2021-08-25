@@ -17,7 +17,7 @@ export class Database {
         this.user = process.env.db_user;
         this.password = process.env.db_password;
         this.schema = process.env.db_schema;
-    }
+    };
 
     public async connection() {
         const databaseConnection: Connection = await createConnection({
@@ -26,8 +26,8 @@ export class Database {
             user: this.user,
             password: this.password,
             database: this.schema
-        })
+        });
         return databaseConnection;
 
-    }
-}
+    };
+};

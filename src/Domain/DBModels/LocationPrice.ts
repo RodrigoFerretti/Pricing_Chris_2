@@ -9,5 +9,5 @@ export class LocationPriceModel extends DbModel {
         segment_id: number,
         price: number,
         transportation_price: number
-    }
-}
+    };
+};

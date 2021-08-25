@@ -3,14 +3,14 @@ export class LocationPrice {
     locationId: number;
     segmentId: number;
     price: number;
-    transportationCosts: number;
+    transportationPrice: number;
 
-    constructor({productId, locationId, segmentId, price, transportationCosts}: LocationPrice) {
+    constructor({productId, locationId, segmentId, price, transportationPrice}: LocationPrice) {
         this.productId = productId;
         this.locationId = locationId;
         this.segmentId = segmentId;
         this.price = price;
-        this.transportationCosts = transportationCosts;
+        this.transportationPrice = transportationPrice;
 
     }
 }

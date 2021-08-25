@@ -8,5 +8,5 @@ export class LocationModel extends DbModel {
         name: string,
         city_id: number,
         state_id: number
-    }
-}
+    };
+};

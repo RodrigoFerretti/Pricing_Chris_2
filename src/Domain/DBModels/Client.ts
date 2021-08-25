@@ -9,5 +9,5 @@ export class ClientModel extends DbModel {
         tpv: number,
         segment_id: number,
         location_id: number
-    }
-}
+    };
+};

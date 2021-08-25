@@ -8,5 +8,5 @@ export class StatePriceModel extends DbModel {
         state_id: number,
         segment_id: number,
         price: number
-    }
-}
+    };
+};

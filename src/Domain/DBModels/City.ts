@@ -7,5 +7,5 @@ export class CityModel extends DbModel {
         id: number,
         name: string,
         state_id: number
-    }
-}
+    };
+};

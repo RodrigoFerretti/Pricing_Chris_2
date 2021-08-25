@@ -7,5 +7,5 @@ export class ProductModel extends DbModel {
         id: number,
         name: string,
         fabrication_costs: number
-    }
-}
+    };
+};

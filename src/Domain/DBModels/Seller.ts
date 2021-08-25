@@ -7,5 +7,5 @@ export class SellerModel extends DbModel {
         id: number,
         name: string,
         type: number
-    }
-}
+    };
+};

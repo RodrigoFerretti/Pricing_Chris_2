@@ -6,5 +6,5 @@ export class StateModel extends DbModel {
     columns!: {
         id: number,
         name: string
-    }
-}
+    };
+};

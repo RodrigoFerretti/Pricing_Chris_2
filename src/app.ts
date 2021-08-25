@@ -1,12 +1,14 @@
-import { SellerModel } from "./Domain/DBModels/Seller"
+import { RequestObjects, RequestDTO, requestJSON } from "./Repository/RequestObjects"
+import { NegotiationObjects, NegotiationDTO } from "./Repository/NegotiationObjects";
+import { Negotiation } from "./Application/Entities/Negotiation";
 
 
 const main = async () => {
-
-    let seller: SellerModel = new SellerModel();
-    const response = await seller.query().filter({id: 1123}).orderBy(`id`, `DESC`).first()
-    console.log(response);
-
-}
+    const requestJSON: requestJSON = {clientId: 2, sellerId: 1, productId: 1, priceOffer: 50.00};
+    const requestDTO: RequestDTO = await new RequestObjects().from(requestJSON);
+    const negotiationDTO: NegotiationDTO = await new NegotiationObjects().from(requestDTO);
+    const negotiation: Negotiation = new Negotiation(negotiationDTO);
+    console.log(negotiation);
+};
 
 main();
