@@ -18,16 +18,14 @@ export class Negotiation {
     priceOffer: number;
     segment: Segment;
     location: Location;
-    locationPrice: LocationPrice;
     city: City;
-    cityPrice: CityPrice;
     state: State;
-    statePrice: StatePrice;
-    level!: number;
-    minimumPrice!: number;
-    offerIsProfitable!: number;
-    finalPrice!: number;
-    monthlyProfitsAndLooses!: ProfitsAndLooses;
+    prices: NegotiationPrices;
+    level: NegotiationLevel;
+    minimumPrice: NegotiationMinimumPrice;
+    offerIsProfitable: boolean;
+    finalPrice: number;
+    // monthlyProfitsAndLooses!: ProfitsAndLooses;
 
 
     constructor(negotiationContext: NegotiationContext) {
@@ -37,26 +35,62 @@ export class Negotiation {
         this.priceOffer = negotiationContext.priceOffer;
         this.segment = negotiationContext.segment;
         this.location = negotiationContext.location;
-        this.locationPrice = negotiationContext.locationPrice;
         this.city = negotiationContext.city;
-        this.cityPrice = negotiationContext.cityPrice;
         this.state = negotiationContext.state;
-        this.statePrice = negotiationContext.statePrice;
+        this.prices = new NegotiationPrices({
+            locationPrice: negotiationContext.locationPrice,
+            cityPrice: negotiationContext.cityPrice,
+            statePrice: negotiationContext.statePrice
+        });
+        // still going to implement client level
+        this.level = new NegotiationLevel(1, this.seller.type);
+        this.minimumPrice = new NegotiationMinimumPrice(this.prices, this.level);
+        this.offerIsProfitable = (this.priceOffer > this.minimumPrice.price) ? true : false;
+        this.finalPrice = (this.offerIsProfitable) ? this.priceOffer : this.minimumPrice.price
     };
 };
 
-export class ProfitsAndLooses {
-    revenue: number;
-    expenses: number;
-    expensesPercentage: number;
-    profit: number;
-    profitPercentage: number;
 
-    constructor(profitsAndLooses: ProfitsAndLooses) {
-        this.revenue = profitsAndLooses.revenue;
-        this.expenses = profitsAndLooses.expenses;
-        this.expensesPercentage = profitsAndLooses.expensesPercentage;
-        this.profit = profitsAndLooses.profit;
-        this.profitPercentage = profitsAndLooses.profitPercentage;
+export class NegotiationPrices {
+    locationPrice: LocationPrice;
+    cityPrice: CityPrice;
+    statePrice: StatePrice;
+
+    constructor(negotiationPrices: NegotiationPrices) {
+        this.locationPrice = negotiationPrices.locationPrice;
+        this.cityPrice = negotiationPrices.cityPrice;
+        this.statePrice = negotiationPrices.statePrice
+    };
+};
+
+
+export class NegotiationLevel {
+    clientLevel: number;
+    sellerType: number;
+    level: number;
+
+    constructor(clientLevel: number, sellerType: number) {
+        this.clientLevel = clientLevel;
+        this.sellerType = sellerType;
+        this.level = (clientLevel > sellerType) ? clientLevel : sellerType;
+    };
+};
+
+
+export class NegotiationMinimumPrice {
+    prices: NegotiationPrices;
+    negotiationLevel: NegotiationLevel;
+    orderedPossiblePrices: number[]
+    price: number;
+
+    constructor(prices: NegotiationPrices, negotiationLevel: NegotiationLevel) {
+        this.prices = prices;
+        this.negotiationLevel = negotiationLevel;
+        this.orderedPossiblePrices = [
+            this.prices.locationPrice.price,
+            this.prices.cityPrice.price,
+            this.prices.statePrice.price
+        ].sort((a, b) => b - a);
+        this.price = this.orderedPossiblePrices[this.negotiationLevel.level];
     };
 };

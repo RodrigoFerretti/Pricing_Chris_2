@@ -26,26 +26,10 @@ export class DbModel {
         return this;
     };
 
-    public async all() {
-        try {
-            const connection: Connection = await new Database().connection();
-            const [rows]: this[`columns`][] = await connection.query(this.sqlStatement);
-            const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
-            if (rowsResponse == []) {
-                return Promise.reject(`no ${this.tableName} found`);
-            };
-            return rowsResponse;
-        } catch (error) {
-            console.log(error);
-            return Promise.reject(`internal server error`);
-        };
-    };
-
-
     public async first() {
         try {
             this.sqlStatement += ` LIMIT 1`;
-            const connection = await new Database().connection();
+            const connection: Connection = await new Database().connection();
             const [rows]: this[`columns`][] = await connection.query(this.sqlStatement);
             const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));
             const firstRow: this[`columns`] | null = (rowsResponse[0] == undefined) ? null : rowsResponse[0];
