@@ -7,19 +7,19 @@ import { SellerModel } from "../Domain/DBModels/Seller"
 import { ProductModel } from "../Domain/DBModels/Product"
 
 
-export class RequestObjects {
+export class RequestEntities {
 
     public async from(requestJSON: requestJSON) {
         const client: Client = await this.getClientById(requestJSON.clientId);
         const seller: Seller = await this.getSellerById(requestJSON.sellerId);
         const product: Product = await this.getProductById(requestJSON.productId);
-        const requestDTO: RequestDTO = new RequestDTO({
+        const requestContext: RequestContext = new RequestContext({
             client: client, 
             seller: seller, 
             product: product, 
             priceOffer: requestJSON.priceOffer
         });
-        return requestDTO;
+        return requestContext;
     };
 
     private async getClientById(clientId: number) {
@@ -68,13 +68,13 @@ export type requestJSON = {
     priceOffer: number;
 };
 
-export class RequestDTO {
+export class RequestContext {
     client: Client;
     seller: Seller;
     product: Product;
     priceOffer: number;
 
-    constructor(requestDTO: RequestDTO) {
+    constructor(requestDTO: RequestContext) {
         this.client = requestDTO.client;
         this.seller = requestDTO.seller;
         this.product = requestDTO.product;

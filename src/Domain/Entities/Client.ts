@@ -11,5 +11,7 @@ export class Client {
         this.tpv = tpv;
         this.segmentId = segmentId;
         this.locationId = locationId;
-    }
-}
+    };
+
+};
+

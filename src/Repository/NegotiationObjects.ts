@@ -1,4 +1,4 @@
-import { RequestDTO } from "./RequestObjects"
+import { RequestContext } from "./RequestObjects"
 
 import { Seller } from "../Domain/Entities/Seller"
 import { Client } from "../Domain/Entities/Client"
@@ -11,7 +11,6 @@ import { CityPrice } from "../Domain/Entities/CityPrice"
 import { State } from "../Domain/Entities/State"
 import { StatePrice } from "../Domain/Entities/StatePrice"
 
-import { ClientModel } from "../Domain/DBModels/Client"
 import { SegmentModel } from "../Domain/DBModels/Segment"
 import { LocationModel } from "../Domain/DBModels/Location";
 import { LocationPriceModel } from "../Domain/DBModels/LocationPrice"
@@ -20,25 +19,23 @@ import { CityPriceModel } from "../Domain/DBModels/CityPrice"
 import { StateModel } from "../Domain/DBModels/State"
 import { StatePriceModel } from "../Domain/DBModels/StatePrice"
 
-import { Negotiation } from "../Application/Entities/Negotiation"
 
 
-export class NegotiationObjects {
+export class NegotiationEntities {
 
-    public async from(requestDTO: RequestDTO) {
-        const segment: Segment = await this.getSegment(requestDTO.client);
-        const location: Location = await this.getLocation(requestDTO.client);
-        const locationPrice: LocationPrice = await this.getLocationPrice(requestDTO.product, location, segment);
+    public async from(requestContext: RequestContext) {
+        const segment: Segment = await this.getSegment(requestContext.client);
+        const location: Location = await this.getLocation(requestContext.client);
+        const locationPrice: LocationPrice = await this.getLocationPrice(requestContext.product, location, segment);
         const city: City = await this.getCity(location);
-        const cityPrice: CityPrice = await this.getCityPrice(requestDTO.product, city, segment);
+        const cityPrice: CityPrice = await this.getCityPrice(requestContext.product, city, segment);
         const state: State = await this.getState(location);
-        const statePrice: StatePrice = await this.getStatePrice(requestDTO.product, state, segment);
-        const highestClientTPV: number = await this.getHighestClientTPV();
-        const negotiationDTO: NegotiationDTO = new NegotiationDTO({
-            client: requestDTO.client,
-            product: requestDTO.product,
-            seller: requestDTO.seller,
-            priceOffer: requestDTO.priceOffer,
+        const statePrice: StatePrice = await this.getStatePrice(requestContext.product, state, segment);
+        const negotiationDTO: NegotiationContext = new NegotiationContext({
+            client: requestContext.client,
+            product: requestContext.product,
+            seller: requestContext.seller,
+            priceOffer: requestContext.priceOffer,
             segment: segment,
             location: location,
             locationPrice: locationPrice,
@@ -46,7 +43,6 @@ export class NegotiationObjects {
             cityPrice: cityPrice,
             state: state,
             statePrice: statePrice,
-            highestClientTPV: highestClientTPV
         });
         return negotiationDTO;
     };
@@ -144,15 +140,15 @@ export class NegotiationObjects {
         return statePrice;
     };
 
-    private async getHighestClientTPV() {
-        const clientQueryResult: ClientModel[`columns`] = await new ClientModel().query().orderBy(`tpv`).first();
-        const highestTPV: number = clientQueryResult.tpv
-        return highestTPV;
+    // private async getHighestClientTPV() {
+    //     const clientQueryResult: ClientModel[`columns`] = await new ClientModel().query().orderBy(`tpv`).first();
+    //     const highestTPV: number = clientQueryResult.tpv
+    //     return highestTPV;
 
-    };
+    // };
 };
 
-export class NegotiationDTO {
+export class NegotiationContext {
     client: Client;
     product: Product;
     seller: Seller;
@@ -164,20 +160,18 @@ export class NegotiationDTO {
     cityPrice: CityPrice;
     state: State;
     statePrice: StatePrice;
-    highestClientTPV: number;
 
-    constructor(negotiationDTO: Negotiation) {
-        this.client = negotiationDTO.client;
-        this.product = negotiationDTO.product;
-        this.seller = negotiationDTO.seller;
-        this.priceOffer = negotiationDTO.priceOffer;
-        this.segment = negotiationDTO.segment;
-        this.location = negotiationDTO.location;
-        this.locationPrice = negotiationDTO.locationPrice;
-        this.city = negotiationDTO.city;
-        this.cityPrice = negotiationDTO.cityPrice;
-        this.state = negotiationDTO.state;
-        this.statePrice = negotiationDTO.statePrice;
-        this.highestClientTPV = negotiationDTO.highestClientTPV;
+    constructor(negotiationContext: NegotiationContext) {
+        this.client = negotiationContext.client;
+        this.product = negotiationContext.product;
+        this.seller = negotiationContext.seller;
+        this.priceOffer = negotiationContext.priceOffer;
+        this.segment = negotiationContext.segment;
+        this.location = negotiationContext.location;
+        this.locationPrice = negotiationContext.locationPrice;
+        this.city = negotiationContext.city;
+        this.cityPrice = negotiationContext.cityPrice;
+        this.state = negotiationContext.state;
+        this.statePrice = negotiationContext.statePrice;
     };
 };
