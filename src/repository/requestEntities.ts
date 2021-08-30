@@ -1,10 +1,10 @@
-import { Client } from "../Domain/Entities/Client"
-import { Seller } from "../Domain/Entities/Seller"
-import { Product } from "../Domain/Entities/Product"
+import { Client } from "../domain/client"
+import { Seller } from "../domain/seller"
+import { Product } from "../domain/product"
 
-import { ClientModel } from "../Domain/DBModels/Client"
-import { SellerModel } from "../Domain/DBModels/Seller"
-import { ProductModel } from "../Domain/DBModels/Product"
+import { ClientModel } from "../setup/DBModels/Client"
+import { SellerModel } from "../setup/DBModels/Seller"
+import { ProductModel } from "../setup/DBModels/Product"
 
 
 export class RequestEntities {

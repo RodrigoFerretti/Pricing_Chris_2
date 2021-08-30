@@ -1,23 +1,24 @@
-import { RequestContext } from "./RequestObjects"
+import { RequestContext } from "./requestEntities"
 
-import { Seller } from "../Domain/Entities/Seller"
-import { Client } from "../Domain/Entities/Client"
-import { Product } from "../Domain/Entities/Product"
-import { Segment } from "../Domain/Entities/Segment"
-import { Location } from "../Domain/Entities/Location"
-import { LocationPrice } from "../Domain/Entities/LocationPrice"
-import { City } from "../Domain/Entities/City"
-import { CityPrice } from "../Domain/Entities/CityPrice"
-import { State } from "../Domain/Entities/State"
-import { StatePrice } from "../Domain/Entities/StatePrice"
+import { Seller } from "../domain/seller"
+import { Client } from "../domain/client"
+import { Product } from "../domain/product"
+import { Segment } from "../domain/segment"
+import { Location } from "../domain/location"
+import { LocationPrice } from "../domain/locationPrice"
+import { City } from "../domain/city"
+import { CityPrice } from "../domain/cityPrice"
+import { State } from "../domain/state"
+import { StatePrice } from "../domain/statePrice"
 
-import { SegmentModel } from "../Domain/DBModels/Segment"
-import { LocationModel } from "../Domain/DBModels/Location";
-import { LocationPriceModel } from "../Domain/DBModels/LocationPrice"
-import { CityModel } from "../Domain/DBModels/City"
-import { CityPriceModel } from "../Domain/DBModels/CityPrice"
-import { StateModel } from "../Domain/DBModels/State"
-import { StatePriceModel } from "../Domain/DBModels/StatePrice"
+import { ClientModel } from "../setup/DBModels/Client" 
+import { SegmentModel } from "../setup/DBModels/Segment"
+import { LocationModel } from "../setup/DBModels/Location";
+import { LocationPriceModel } from "../setup/DBModels/LocationPrice"
+import { CityModel } from "../setup/DBModels/City"
+import { CityPriceModel } from "../setup/DBModels/CityPrice"
+import { StateModel } from "../setup/DBModels/State"
+import { StatePriceModel } from "../setup/DBModels/StatePrice"
 
 
 
@@ -31,7 +32,7 @@ export class NegotiationEntities {
         const cityPrice: CityPrice = await this.getCityPrice(requestContext.product, city, segment);
         const state: State = await this.getState(location);
         const statePrice: StatePrice = await this.getStatePrice(requestContext.product, state, segment);
-        const negotiationDTO: NegotiationContext = new NegotiationContext({
+        const negotiationContext: NegotiationContext = new NegotiationContext({
             client: requestContext.client,
             product: requestContext.product,
             seller: requestContext.seller,
@@ -44,7 +45,7 @@ export class NegotiationEntities {
             state: state,
             statePrice: statePrice,
         });
-        return negotiationDTO;
+        return negotiationContext;
     };
 
     private async getSegment(client: Client) {
@@ -140,12 +141,6 @@ export class NegotiationEntities {
         return statePrice;
     };
 
-    // private async getHighestClientTPV() {
-    //     const clientQueryResult: ClientModel[`columns`] = await new ClientModel().query().orderBy(`tpv`).first();
-    //     const highestTPV: number = clientQueryResult.tpv
-    //     return highestTPV;
-
-    // };
 };
 
 export class NegotiationContext {

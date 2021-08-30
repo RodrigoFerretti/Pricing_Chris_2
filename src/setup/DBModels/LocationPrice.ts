@@ -1,4 +1,4 @@
-import { DbModel } from "../../Setup/DbModel"
+import { DbModel } from "../DbModel"
 
 
 export class LocationPriceModel extends DbModel {
