@@ -11,7 +11,6 @@ import { CityPrice } from "../domain/cityPrice"
 import { State } from "../domain/state"
 import { StatePrice } from "../domain/statePrice"
 
-import { ClientModel } from "../setup/DBModels/Client" 
 import { SegmentModel } from "../setup/DBModels/Segment"
 import { LocationModel } from "../setup/DBModels/Location";
 import { LocationPriceModel } from "../setup/DBModels/LocationPrice"

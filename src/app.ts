@@ -1,11 +1,11 @@
-import { RequestEntities, RequestContext, requestJSON } from "./repository/requestEntities"
+import { RequestEntities, RequestContext } from "./repository/requestEntities"
 import { NegotiationEntities, NegotiationContext } from "./repository/negotiationEntities";
 import { Negotiation } from "./application/negotiation";
 import { HighestTPV } from "./repository/highestTPV";
 
 
 const main = async () => {
-    const requestJSON: requestJSON = {clientId: 2, sellerId: 1, productId: 1, priceOffer: 50.00};
+    const requestJSON: requestJSON = {clientId: 1, sellerId: 3, productId: 1, priceOffer: 0.10};
     const requestContext: RequestContext = await new RequestEntities().from(requestJSON);
     const negotiationContext: NegotiationContext = await new NegotiationEntities().from(requestContext);
     const highestTPV: number = await new HighestTPV().fromClients();
@@ -14,3 +14,11 @@ const main = async () => {
 };
 
 main();
+
+
+export type requestJSON = {
+    clientId: number;
+    sellerId: number;
+    productId: number;
+    priceOffer: number;
+};

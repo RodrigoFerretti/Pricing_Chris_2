@@ -10,6 +10,7 @@ import { State } from "../domain/state";
 import { StatePrice } from "../domain/statePrice";
 import { NegotiationContext } from "../repository/negotiationEntities";
 import { ExcludeMethods } from "../utils/excludeMethodsType";
+import { ProfitsAndLooses } from "./profitsAndLooses";
 
 
 export class Negotiation {
@@ -18,16 +19,13 @@ export class Negotiation {
     seller: Seller;
     priceOffer: number;
     segment: Segment;
-    location: Location;
-    city: City;
-    state: State;
+    address: NegotiationAddress;
     prices: NegotiationPrices;
     level: number;
     minimumPrice: number;
     offerIsHigherThanMinimum: boolean;
     finalPrice: number;
-    // monthlyProfitsAndLooses!: ProfitsAndLooses;
-
+    monthlyProfitsAndLooses: ProfitsAndLooses;
 
     constructor(negotiationContext: ExcludeMethods<NegotiationContext>, highestTPV: number) {
         this.client = negotiationContext.client;
@@ -35,19 +33,27 @@ export class Negotiation {
         this.seller = negotiationContext.seller;
         this.priceOffer = negotiationContext.priceOffer;
         this.segment = negotiationContext.segment;
-        this.location = negotiationContext.location;
-        this.city = negotiationContext.city;
-        this.state = negotiationContext.state;
+
+        this.address = new NegotiationAddress({
+            location: negotiationContext.location,
+            city: negotiationContext.city,
+            state: negotiationContext.state,
+
+        });
+
         this.prices = new NegotiationPrices({
             locationPrice: negotiationContext.locationPrice,
             cityPrice: negotiationContext.cityPrice,
             statePrice: negotiationContext.statePrice
         });
+
         this.level = this.getLevel(highestTPV);
         this.minimumPrice = this.getMinimumPrice();
         this.offerIsHigherThanMinimum = this.getPriceOfferIsHigherThanMinimum();
         this.finalPrice = this.getFinalPrice();
+        this.monthlyProfitsAndLooses = this.getProfitsAndLooses();
     };
+
 
     private getLevel(highestTPV: number) {
         const clientLevel: number = this.client.getLevel(highestTPV);
@@ -69,6 +75,30 @@ export class Negotiation {
         const finalPrice: number = (this.offerIsHigherThanMinimum) ? this.priceOffer : this.minimumPrice;
         return finalPrice;
     };
+
+    private getProductRevenue() {
+        let revenue: number;
+        if (this.product.id == 1) {
+            revenue = this.finalPrice * this.client.tpv / 10;
+        }
+        else if (this.product.id == 2) {
+            revenue = this.finalPrice / 10;
+        }
+        else {
+            revenue = this.finalPrice;
+        }
+        return revenue;
+    };
+
+
+    private getProfitsAndLooses() {
+        const revenue: number = this.getProductRevenue();
+        const expenses: number = (this.product.fabricationCosts / 10) 
+                                + (this.prices.locationPrice.transportationPrice / 10) + (revenue * 0.1125)
+        const profit: number = revenue - expenses
+        const profitsAndLooses: ProfitsAndLooses = new ProfitsAndLooses(revenue, expenses, profit);
+        return profitsAndLooses;
+    }
 };
 
 
@@ -90,5 +120,17 @@ export class NegotiationPrices {
             this.statePrice.price
         ].sort((a, b) => b - a);
         return pricesOrderedDescending;
+    };
+};
+
+export class NegotiationAddress {
+    location: Location;
+    city: City;
+    state: State;
+
+    constructor(negotiationAddress: NegotiationAddress) {
+        this.location = negotiationAddress.location;
+        this.city = negotiationAddress.city;
+        this.state = negotiationAddress.state;
     };
 };

@@ -6,6 +6,8 @@ import { ClientModel } from "../setup/DBModels/Client"
 import { SellerModel } from "../setup/DBModels/Seller"
 import { ProductModel } from "../setup/DBModels/Product"
 
+import { requestJSON } from "../app"
+
 
 export class RequestEntities {
 
@@ -59,13 +61,6 @@ export class RequestEntities {
         });
         return product;
     };
-};
-
-export type requestJSON = {
-    clientId: number;
-    sellerId: number;
-    productId: number;
-    priceOffer: number;
 };
 
 export class RequestContext {
