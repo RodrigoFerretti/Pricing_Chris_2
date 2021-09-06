@@ -8,9 +8,12 @@ import { City } from "../domain/city";
 import { CityPrice } from "../domain/cityPrice";
 import { State } from "../domain/state";
 import { StatePrice } from "../domain/statePrice";
-import { NegotiationContext } from "../repository/negotiationEntities";
+
 import { ExcludeMethods } from "../utils/excludeMethodsType";
+
 import { ProfitsAndLooses } from "./profitsAndLooses";
+
+import { NegotiationRequest } from "../repository/negotiationRequest";
 
 
 export class Negotiation {
@@ -27,24 +30,24 @@ export class Negotiation {
     finalPrice: number;
     monthlyProfitsAndLooses: ProfitsAndLooses;
 
-    constructor(negotiationContext: ExcludeMethods<NegotiationContext>, highestTPV: number) {
-        this.client = negotiationContext.client;
-        this.product = negotiationContext.product;
-        this.seller = negotiationContext.seller;
-        this.priceOffer = negotiationContext.priceOffer;
-        this.segment = negotiationContext.segment;
+    constructor(negotiationRequest: ExcludeMethods<NegotiationRequest>, highestTPV: number) {
+        this.client = negotiationRequest.client;
+        this.product = negotiationRequest.product;
+        this.seller = negotiationRequest.seller;
+        this.priceOffer = negotiationRequest.priceOffer;
+        this.segment = negotiationRequest.segment;
 
         this.address = new NegotiationAddress({
-            location: negotiationContext.location,
-            city: negotiationContext.city,
-            state: negotiationContext.state,
+            location: negotiationRequest.location,
+            city: negotiationRequest.city,
+            state: negotiationRequest.state,
 
         });
 
         this.prices = new NegotiationPrices({
-            locationPrice: negotiationContext.locationPrice,
-            cityPrice: negotiationContext.cityPrice,
-            statePrice: negotiationContext.statePrice
+            locationPrice: negotiationRequest.locationPrice,
+            cityPrice: negotiationRequest.cityPrice,
+            statePrice: negotiationRequest.statePrice
         });
 
         this.level = this.getLevel(highestTPV);

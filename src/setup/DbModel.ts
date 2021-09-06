@@ -6,13 +6,14 @@ export class DbModel {
     private sqlStatement!: string;
     public tableName!: string;
     public columns!: object;
+    public relativeAttributes!: object;
 
-    public query() {
+    public select() {
         this.sqlStatement = `SELECT * FROM ${this.tableName}`;
         return this;
     };
 
-    public filter(modelObject: Partial<this[`columns`]>) {
+    public where(modelObject: Partial<this[`columns`]>) {
         this.sqlStatement += ` WHERE`;
         for (let [key, value] of Object.entries(modelObject)) {
             this.sqlStatement += ` ${this.tableName}.${key} = '${value}' AND`
@@ -26,9 +27,9 @@ export class DbModel {
         return this;
     };
 
-    public async first() {
+    public async limit(amount: number = 1) {
         try {
-            this.sqlStatement += ` LIMIT 1`;
+            this.sqlStatement += ` LIMIT ${amount}`;
             const connection: Connection = await new Database().connection();
             const [rows]: this[`columns`][] = await connection.query(this.sqlStatement);
             const rowsResponse: this[`columns`][] = JSON.parse(JSON.stringify(rows));

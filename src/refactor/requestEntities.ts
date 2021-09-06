@@ -25,9 +25,9 @@ export class RequestEntities {
     };
 
     private async getClientById(clientId: number) {
-        const clientQueryResult: ClientModel[`columns`] = await new ClientModel().query().filter({
+        const clientQueryResult: ClientModel[`columns`] = await new ClientModel().select().where({
             id: clientId
-        }).first();
+        }).limit();
         const client: Client = new Client({
             id: clientQueryResult.id,
             name: clientQueryResult.name,
@@ -39,9 +39,9 @@ export class RequestEntities {
     };
 
     private async getSellerById(sellerId: number) {
-        const sellerQueryResult: SellerModel[`columns`] = await new SellerModel().query().filter({
+        const sellerQueryResult: SellerModel[`columns`] = await new SellerModel().select().where({
             id: sellerId
-        }).first();
+        }).limit();
         const seller: Seller = new Seller({
             id: sellerQueryResult.id,
             name: sellerQueryResult.name,
@@ -51,9 +51,9 @@ export class RequestEntities {
     };
 
     private async getProductById(productId: number) {
-        const productQueryResult: ProductModel[`columns`] = await new ProductModel().query().filter({
+        const productQueryResult: ProductModel[`columns`] = await new ProductModel().select().where({
             id: productId
-        }).first();
+        }).limit();
         const product: Product = new Product({
             id: productQueryResult.id,
             name: productQueryResult.name,
@@ -69,10 +69,10 @@ export class RequestContext {
     product: Product;
     priceOffer: number;
 
-    constructor(requestDTO: RequestContext) {
-        this.client = requestDTO.client;
-        this.seller = requestDTO.seller;
-        this.product = requestDTO.product;
-        this.priceOffer = requestDTO.priceOffer;
+    constructor(requestContext: RequestContext) {
+        this.client = requestContext.client;
+        this.seller = requestContext.seller;
+        this.product = requestContext.product;
+        this.priceOffer = requestContext.priceOffer;
     };
 };

@@ -21,7 +21,18 @@ import { StatePriceModel } from "../setup/DBModels/StatePrice"
 
 
 
-export class NegotiationEntities {
+export class NegotiationContext {
+    client!: Client;
+    product!: Product;
+    seller!: Seller;
+    priceOffer!: number;
+    segment!: Segment;
+    location!: Location;
+    locationPrice!: LocationPrice;
+    city!: City;
+    cityPrice!: CityPrice;
+    state!: State;
+    statePrice!: StatePrice;
 
     public async from(requestContext: RequestContext) {
         const segment: Segment = await this.getSegment(requestContext.client);
@@ -31,26 +42,26 @@ export class NegotiationEntities {
         const cityPrice: CityPrice = await this.getCityPrice(requestContext.product, city, segment);
         const state: State = await this.getState(location);
         const statePrice: StatePrice = await this.getStatePrice(requestContext.product, state, segment);
-        const negotiationContext: NegotiationContext = new NegotiationContext({
-            client: requestContext.client,
-            product: requestContext.product,
-            seller: requestContext.seller,
-            priceOffer: requestContext.priceOffer,
-            segment: segment,
-            location: location,
-            locationPrice: locationPrice,
-            city: city,
-            cityPrice: cityPrice,
-            state: state,
-            statePrice: statePrice,
-        });
-        return negotiationContext;
+
+        this.client = requestContext.client;
+        this.product = requestContext.product;
+        this.seller = requestContext.seller;
+        this.priceOffer = requestContext.priceOffer;
+        this.segment = segment;
+        this.location = location;
+        this.locationPrice = locationPrice;
+        this.city = city;
+        this.cityPrice = cityPrice;
+        this.state = state;
+        this.statePrice = statePrice;
+
+        return this;
     };
 
     private async getSegment(client: Client) {
-        const segmentQueryResult: SegmentModel[`columns`] = await new SegmentModel().query().filter({
+        const segmentQueryResult: SegmentModel[`columns`] = await new SegmentModel().select().where({
             id: client.segmentId
-        }).first();
+        }).limit();
         const segment: Segment = new Segment({
             id: segmentQueryResult.id,
             name: segmentQueryResult.name
@@ -59,9 +70,9 @@ export class NegotiationEntities {
     };
 
     private async getLocation(client: Client) {
-        const locationQueryResult: LocationModel[`columns`] = await new LocationModel().query().filter({
+        const locationQueryResult: LocationModel[`columns`] = await new LocationModel().select().where({
             id: client.locationId
-        }).first();
+        }).limit();
         const location: Location = new Location({
             id: locationQueryResult.id,
             name: locationQueryResult.name,
@@ -72,11 +83,11 @@ export class NegotiationEntities {
     };
 
     private async getLocationPrice(product: Product, location: Location, segment: Segment) {
-        const locationPriceQueryResult: LocationPriceModel[`columns`] = await new LocationPriceModel().query().filter({
+        const locationPriceQueryResult: LocationPriceModel[`columns`] = await new LocationPriceModel().select().where({
             product_id: product.id, 
             location_id: location.id, 
             segment_id: segment.id
-        }).first();
+        }).limit();
         const locationPrice: LocationPrice = new LocationPrice({
             productId: locationPriceQueryResult.product_id,
             locationId: locationPriceQueryResult.location_id,
@@ -88,9 +99,9 @@ export class NegotiationEntities {
     };
 
     private async getCity(location: Location) {
-        const cityQueryResult: CityModel[`columns`] = await new CityModel().query().filter({
+        const cityQueryResult: CityModel[`columns`] = await new CityModel().select().where({
             id: location.cityId
-        }).first();
+        }).limit();
         const city: City = new City({
             id: cityQueryResult.id,
             name: cityQueryResult.name,
@@ -100,11 +111,11 @@ export class NegotiationEntities {
     };
 
     private async getCityPrice(product: Product, city: City, segment: Segment) {
-        const cityPriceQueryResult: CityPriceModel[`columns`] = await new CityPriceModel().query().filter({
+        const cityPriceQueryResult: CityPriceModel[`columns`] = await new CityPriceModel().select().where({
             product_id: product.id, 
             city_id: city.id, 
             segment_id: segment.id
-        }).first();
+        }).limit();
         const cityPrice: CityPrice = new CityPrice({
             productId: cityPriceQueryResult.product_id,
             cityId: cityPriceQueryResult.city_id,
@@ -115,9 +126,9 @@ export class NegotiationEntities {
     };
 
     private async getState(location: Location) {
-        const stateQueryResult: StateModel[`columns`] = await new StateModel().query().filter({
+        const stateQueryResult: StateModel[`columns`] = await new StateModel().select().where({
             id: location.id
-        }).first();
+        }).limit();
         const state: State = new State({
             id: stateQueryResult.id,
             name: stateQueryResult.name,
@@ -126,11 +137,11 @@ export class NegotiationEntities {
     };
 
     private async getStatePrice(product: Product, state: State, segment: Segment) {
-        const statePriceQueryResult: StatePriceModel[`columns`] = await new StatePriceModel().query().filter({
+        const statePriceQueryResult: StatePriceModel[`columns`] = await new StatePriceModel().select().where({
             product_id: product.id, 
             state_id: state.id, 
             segment_id: segment.id
-        }).first();
+        }).limit();
         const statePrice: StatePrice = new StatePrice({
             productId: statePriceQueryResult.product_id,
             stateId: statePriceQueryResult.state_id,
@@ -140,32 +151,4 @@ export class NegotiationEntities {
         return statePrice;
     };
 
-};
-
-export class NegotiationContext {
-    client: Client;
-    product: Product;
-    seller: Seller;
-    priceOffer: number;
-    segment: Segment;
-    location: Location;
-    locationPrice: LocationPrice;
-    city: City;
-    cityPrice: CityPrice;
-    state: State;
-    statePrice: StatePrice;
-
-    constructor(negotiationContext: NegotiationContext) {
-        this.client = negotiationContext.client;
-        this.product = negotiationContext.product;
-        this.seller = negotiationContext.seller;
-        this.priceOffer = negotiationContext.priceOffer;
-        this.segment = negotiationContext.segment;
-        this.location = negotiationContext.location;
-        this.locationPrice = negotiationContext.locationPrice;
-        this.city = negotiationContext.city;
-        this.cityPrice = negotiationContext.cityPrice;
-        this.state = negotiationContext.state;
-        this.statePrice = negotiationContext.statePrice;
-    };
 };
