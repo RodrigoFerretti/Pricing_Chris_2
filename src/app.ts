@@ -4,6 +4,7 @@
 // import { HighestTPV } from "./repository/highestTPV";
 
 import { Client } from "./domain/client";
+import { Seller } from "./domain/seller";
 import { Database } from "./setup/DbConnect"
 import { ExcludeMethods } from "./utils/excludeMethodsType"
 
@@ -19,10 +20,20 @@ import { ExcludeMethods } from "./utils/excludeMethodsType"
 // main();
 
 
-const main = async () => {
-    const connection = await new Database().connection();
-    const [result] = await connection.query(`SELECT id id, name name, tpv tpv, segment_id segmentId, location_id locationId from client WHERE client.segment_id = 1`)
-    console.log(result);
-};
+// const main = async () => {
+//     const connection = await new Database().connection();
+//     const [result] = await connection.query('SELECT * from client')
+//     console.log(result);
+// };
 
-main();
+// main();
+
+const example: object = {
+    name: `rodrigo`,
+    age: `24`,
+    some: `thing`
+}
+
+const another = Array.from(Object.keys(example));
+
+console.log(another);

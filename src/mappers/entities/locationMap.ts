@@ -1,9 +1,9 @@
 import { Location } from "../../domain/location"
-import { DatabaseTableMap } from "../tableMap"
+import { TableMap } from "../tableMap"
 
 
-export class LocationMap implements DatabaseTableMap<Location> {
-    tableName = `location`;
+export class LocationMap implements TableMap<Location> {
+    name = `location`;
     columnsMap = {
         id: `id`,
         name: `name`,

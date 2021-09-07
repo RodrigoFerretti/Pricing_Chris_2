@@ -1,9 +1,9 @@
 import { State } from "../../domain/state"
-import { DatabaseTableMap } from "../tableMap"
+import { TableMap } from "../tableMap"
 
 
-export class StateMap implements DatabaseTableMap<State> {
-    tableName = `state`;
+export class StateMap implements TableMap<State> {
+    name = `state`;
     columnsMap = {
         id: `id`,
         name: `name`

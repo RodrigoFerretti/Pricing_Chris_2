@@ -1,10 +1,10 @@
 import { Client } from "../../domain/client"
-import { DatabaseTableMap } from "../tableMap"
+import { TableMap } from "../tableMap"
 import { ExcludeMethods } from "../../utils/excludeMethodsType"
 
 
-export class ClientMap implements DatabaseTableMap<ExcludeMethods<Client>> {
-    tableName = `client`;
+export class ClientMap implements TableMap<ExcludeMethods<Client>> {
+    name = `client`;
     columnsMap = {
         id: `id`,
         name: `name`,

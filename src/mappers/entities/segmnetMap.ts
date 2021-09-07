@@ -1,9 +1,9 @@
 import { Segment } from "../../domain/segment"
-import { DatabaseTableMap } from "../tableMap"
+import { TableMap } from "../tableMap"
 
 
-export class SegmentMap implements DatabaseTableMap<Segment> {
-    tableName = `segment`;
+export class SegmentMap implements TableMap<Segment> {
+    name = `segment`;
     columnsMap = {
         id: `id`,
         name: `name`,
