@@ -9,16 +9,16 @@ import { CityPrice } from "../domain/cityPrice"
 import { State } from "../domain/state"
 import { StatePrice } from "../domain/statePrice"
 
-import { ClientModel } from "../setup/DBModels/Client"
-import { ProductModel } from "../setup/DBModels/Product"
-import { SellerModel } from "../setup/DBModels/Seller"
-import { SegmentModel } from "../setup/DBModels/Segment"
-import { LocationModel } from "../setup/DBModels/Location";
-import { LocationPriceModel } from "../setup/DBModels/LocationPrice"
-import { CityModel } from "../setup/DBModels/City"
-import { CityPriceModel } from "../setup/DBModels/CityPrice"
-import { StateModel } from "../setup/DBModels/State"
-import { StatePriceModel } from "../setup/DBModels/StatePrice"
+import { ClientModel } from "../infra/DBModels/Client"
+import { ProductModel } from "../infra/DBModels/Product"
+import { SellerModel } from "../infra/DBModels/Seller"
+import { SegmentModel } from "../infra/DBModels/Segment"
+import { LocationModel } from "../infra/DBModels/Location";
+import { LocationPriceModel } from "../infra/DBModels/LocationPrice"
+import { CityModel } from "../infra/DBModels/City"
+import { CityPriceModel } from "../infra/DBModels/CityPrice"
+import { StateModel } from "../infra/DBModels/State"
+import { StatePriceModel } from "../infra/DBModels/StatePrice"
 
 
 import { requestJSON } from "../app"

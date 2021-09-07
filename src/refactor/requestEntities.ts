@@ -2,9 +2,9 @@ import { Client } from "../domain/client"
 import { Seller } from "../domain/seller"
 import { Product } from "../domain/product"
 
-import { ClientModel } from "../setup/DBModels/Client"
-import { SellerModel } from "../setup/DBModels/Seller"
-import { ProductModel } from "../setup/DBModels/Product"
+import { ClientModel } from "../infra/DBModels/Client"
+import { SellerModel } from "../infra/DBModels/Seller"
+import { ProductModel } from "../infra/DBModels/Product"
 
 import { requestJSON } from "../app"
 

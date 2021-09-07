@@ -9,7 +9,7 @@ import { CityPrice } from "../domain/cityPrice";
 import { State } from "../domain/state";
 import { StatePrice } from "../domain/statePrice";
 
-import { ExcludeMethods } from "../utils/excludeMethodsType";
+import { ExcludeMethods } from "../infra/types/excludeMethods";
 
 import { ProfitsAndLooses } from "./profitsAndLooses";
 

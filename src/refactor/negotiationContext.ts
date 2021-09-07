@@ -11,13 +11,13 @@ import { CityPrice } from "../domain/cityPrice"
 import { State } from "../domain/state"
 import { StatePrice } from "../domain/statePrice"
 
-import { SegmentModel } from "../setup/DBModels/Segment"
-import { LocationModel } from "../setup/DBModels/Location";
-import { LocationPriceModel } from "../setup/DBModels/LocationPrice"
-import { CityModel } from "../setup/DBModels/City"
-import { CityPriceModel } from "../setup/DBModels/CityPrice"
-import { StateModel } from "../setup/DBModels/State"
-import { StatePriceModel } from "../setup/DBModels/StatePrice"
+import { SegmentModel } from "../infra/DBModels/Segment"
+import { LocationModel } from "../infra/DBModels/Location";
+import { LocationPriceModel } from "../infra/DBModels/LocationPrice"
+import { CityModel } from "../infra/DBModels/City"
+import { CityPriceModel } from "../infra/DBModels/CityPrice"
+import { StateModel } from "../infra/DBModels/State"
+import { StatePriceModel } from "../infra/DBModels/StatePrice"
 
 
 

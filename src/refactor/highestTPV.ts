@@ -1,4 +1,4 @@
-import { ClientModel } from "../setup/DBModels/Client";
+import { ClientModel } from "../infra/DBModels/Client";
 
 
 export class HighestTPV {

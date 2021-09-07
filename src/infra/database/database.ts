@@ -20,15 +20,19 @@ export class Database {
     };
 
     public async connection() {
-        const databaseConnection: Connection = await createConnection({
-            host: this.host,
-            port: this.port,
-            user: this.user,
-            password: this.password,
-            database: this.schema
-        });
-        return databaseConnection;
-
+        try {
+            const databaseConnection: Connection = await createConnection({
+                host: this.host,
+                port: this.port,
+                user: this.user,
+                password: this.password,
+                database: this.schema
+            });
+            return databaseConnection;
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(`internal server error`);
+        };
     };
 };
 

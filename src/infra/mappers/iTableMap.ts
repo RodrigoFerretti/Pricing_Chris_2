@@ -1,4 +1,4 @@
-export interface TableMap<T> {
+export interface ITableMap<T> {
     name: string,
     columnsMap: columnsMap<T>
 };

@@ -1,4 +1,4 @@
-import { ExcludeMethods } from "../utils/excludeMethodsType";
+import { ExcludeMethods } from "../infra/types/excludeMethods";
 
 
 export class Client {

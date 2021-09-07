@@ -1,8 +1,8 @@
-import { StatePrice } from "../../domain/statePrice"
-import { TableMap } from "../tableMap"
+import { StatePrice } from "../../../domain/statePrice"
+import { ITableMap } from "../iTableMap"
 
 
-export class StatePriceMap implements TableMap<StatePrice> {
+export class StatePriceMap implements ITableMap<StatePrice> {
     name = `state`;
     columnsMap = {
         productId: `product_id`,
