@@ -1,15 +1,16 @@
+import { iDatabase } from "./interfaces/iDatabase";
 import { createConnection, Connection } from "mysql2/promise"
 import { config as dotenv } from "dotenv"
 
 
 dotenv();
 
-export class Database {
-    host: string | undefined;
-    port: number | undefined;
-    user: string | undefined;
-    password: string | undefined;
-    schema: string | undefined; 
+export class Database implements iDatabase {
+    public host: string | undefined;
+    public port: number | undefined;
+    public user: string | undefined;
+    public password: string | undefined;
+    public schema: string | undefined; 
 
     constructor() {
         this.host = process.env.db_host;
@@ -19,7 +20,7 @@ export class Database {
         this.schema = process.env.db_schema;
     };
 
-    public async connection() {
+    public async connect() {
         try {
             const databaseConnection: Connection = await createConnection({
                 host: this.host,

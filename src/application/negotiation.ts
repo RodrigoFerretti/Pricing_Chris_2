@@ -13,7 +13,7 @@ import { ExcludeMethods } from "../infra/types/excludeMethods";
 
 import { ProfitsAndLooses } from "./profitsAndLooses";
 
-import { NegotiationRequest } from "../repository/negotiationRequest";
+import { NegotiationRequest } from "../infra/repository/negotiationRequest";
 
 
 export class Negotiation {
