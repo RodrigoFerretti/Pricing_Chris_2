@@ -3,6 +3,6 @@ export interface TableMap<T> {
     columnsMap: columnsMap<T>;
 };
 
-type columnsMap<T> = {
+export type columnsMap<T> = {
     [Property in keyof T]: string;
 };

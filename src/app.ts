@@ -1,8 +1,8 @@
-import { Seller } from "./domain/seller";
-import { SellerRepository } from "./infra/repository/sellerRepository";
+import { LocationPrice } from "./domain/locationPrice";
+import { LocationPriceRepository } from "./infra/repository/locationPriceRepository";
 
 
 const main = async () => {
-    const seller: Seller = await new SellerRepository().getById({id: 1});
-    console.log(seller);
+    const locationPrice: LocationPrice = await new LocationPriceRepository().getById({productId: 1, locationId: 1, segmentId: 1});
+    console.log(locationPrice);
 };
