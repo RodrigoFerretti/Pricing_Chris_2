@@ -4,11 +4,9 @@ import { SellerMap } from "../mappers/sellerMap";
 import { Repository } from "./repository";
 
 
-export class SellerRepository extends Repository<Seller> {
-
+export class SellerRepository extends Repository<Seller, [`id`]> {
     constructor() {
-        const primaryKey: keyof Seller = `id`;
         const sellerMap: SellerMap = new SellerMap();
-        super(primaryKey, sellerMap);
+        super(sellerMap);
     };
 };
