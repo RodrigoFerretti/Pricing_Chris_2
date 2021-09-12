@@ -1,6 +1,6 @@
 export interface IQuery<T> {
-    select(): object;
-    where(properties: Partial<T>): object;
-    orderBy(key: keyof T, sorting: `asc` | `desc`): object;
+    select(): IQuery<T>;
+    where(properties: Partial<T>): IQuery<T>;
+    orderBy(key: keyof T, sorting: `asc` | `desc`): IQuery<T>;
     first(): Promise<T>;
 };

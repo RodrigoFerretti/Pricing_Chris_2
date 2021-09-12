@@ -1,7 +1,7 @@
-import { IRepository } from "./interfaces/iRepository"
-import { TableMap } from "../mappers/interfaces/TableMap"
-import { Query } from "../database/query"
-import { Filter } from "./interfaces/Filter";
+import { IRepository } from "../interfaces/iRepository"
+import { TableMap } from "../../mappers/interfaces/TableMap"
+import { Query } from "../../database/query"
+import { Filter } from "../interfaces/Filter";
 
 
 export abstract class Repository<T, PK extends (keyof T)[]> implements IRepository<T, PK> {
