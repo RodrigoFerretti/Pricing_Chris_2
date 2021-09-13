@@ -1,6 +1,3 @@
-import { ExcludeMethods } from "../infra/types/excludeMethods";
-
-
 export class Client {
     id: number;
     name: string;
@@ -8,20 +5,11 @@ export class Client {
     segmentId: number;
     locationId: number;
 
-    constructor({id, name, tpv, segmentId, locationId}: ExcludeMethods<Client>) {
+    constructor({id, name, tpv, segmentId, locationId}: Client) {
         this.id = id;
         this.name = name;
         this.tpv = tpv;
         this.segmentId = segmentId;
         this.locationId = locationId;
     };
-
-    public getLevel(highestClientTPV: number) {
-        const level: number = (this.tpv <= highestClientTPV / 3) ? 1 
-                            : (this.tpv <= highestClientTPV * 2 / 3) ? 2 
-                            : (this.tpv <= highestClientTPV) ? 3 
-                            : 1;
-        return level;
-    };
-
 };

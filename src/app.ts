@@ -1,8 +1,17 @@
-import { LocationPrice } from "./domain/locationPrice";
-import { LocationPriceRepository } from "./infra/repository/locationPriceRepository";
+import { NegotiationRequest } from "./application/negotiationRequest";
+import { NegotiationResult } from "./application/negotiationResult";
+import { NegotiationService } from "./application/negotiationService";
 
 
 const main = async () => {
-    const locationPrice: LocationPrice = await new LocationPriceRepository().getById({productId: 1, locationId: 1, segmentId: 1});
-    console.log(locationPrice);
+    const negotiationRequest: NegotiationRequest = new NegotiationRequest({
+        clientId: 1,
+        sellerId: 1,
+        productId: 1,
+        priceOffer: 10
+    })
+    const result: NegotiationResult = await new NegotiationService(negotiationRequest).getResult();
+    console.log(JSON.stringify(result, null, 2));
 };
+
+main();

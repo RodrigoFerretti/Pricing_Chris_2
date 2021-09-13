@@ -6,7 +6,7 @@ export class LocationPriceMap implements TableMap<LocationPrice> {
     name = `locationprice`;
     columnsMap = {
         productId: `product_id`,
-        locationId: `city_id`,
+        locationId: `location_id`,
         segmentId: `segment_id`,
         price: `price`,
         transportationPrice: `transportation_price`

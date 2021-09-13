@@ -3,7 +3,7 @@ import { TableMap } from "./interfaces/TableMap"
 
 
 export class StatePriceMap implements TableMap<StatePrice> {
-    name = `state`;
+    name = `stateprice`;
     columnsMap = {
         productId: `product_id`,
         stateId: `state_id`,
