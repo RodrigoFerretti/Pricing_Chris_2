@@ -1,9 +1,7 @@
-import { TableMap } from "../../mappers/interfaces/TableMap";
-import { Filter } from "./Filter"
+import { Filter } from "../types/filter"
 
 
 export interface IRepository<T, PK extends (keyof T)[]> {
-    tableMap: TableMap<T>;
-    getById(id: Pick<T, PK[number]>): Promise<T>;
+    getById(primaryKeys: Pick<T, PK[number]>): Promise<T>;
     getFirst(filter: Filter<T>): Promise<T>;
 };

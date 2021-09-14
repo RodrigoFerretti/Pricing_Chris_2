@@ -17,13 +17,13 @@ import { CityRepository } from "../infra/repository/cityRepository";
 import { StateRepository } from "../infra/repository/stateRepository";
 import { LocationPrice } from "../domain/locationPrice";
 import { LocationPriceRepository } from "../infra/repository/locationPriceRepository";
-import { CityPriceRepository } from "../infra/repository/cityPriceMap";
+import { CityPriceRepository } from "../infra/repository/cityPriceRepository";
 import { StatePriceRepository } from "../infra/repository/statePriceRepository";
 
 
-import { Negotiation } from "./negotiation";
-import { NegotiationRequest } from "./negotiationRequest";
-import { NegotiationResult } from "./negotiationResult";
+import { Negotiation } from "./core/negotiation";
+import { NegotiationRequest } from "./core/negotiationRequest";
+import { NegotiationResult } from "./core/negotiationResult";
 
 
 export class NegotiationService {

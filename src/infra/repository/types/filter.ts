@@ -1,4 +1,4 @@
-export interface Filter<T> {
+export type Filter<T> = {
     where?: Partial<T>,
     orderBy?: {
         key: keyof T,

@@ -1,13 +1,13 @@
-import { Client } from "../domain/client";
-import { Product } from "../domain/product";
-import { Seller } from "../domain/seller";
-import { Segment } from "../domain/segment";
-import { Location } from "../domain/location";
-import { City } from "../domain/city";
-import { State } from "../domain/state";
-import { LocationPrice } from "../domain/locationPrice";
-import { CityPrice } from "../domain/cityPrice";
-import { StatePrice } from "../domain/statePrice";
+import { Client } from "../../domain/client";
+import { Product } from "../../domain/product";
+import { Seller } from "../../domain/seller";
+import { Segment } from "../../domain/segment";
+import { Location } from "../../domain/location";
+import { City } from "../../domain/city";
+import { State } from "../../domain/state";
+import { LocationPrice } from "../../domain/locationPrice";
+import { CityPrice } from "../../domain/cityPrice";
+import { StatePrice } from "../../domain/statePrice";
 
 import { ClientLevel } from "./clientLevel";
 import { ProductRevenue } from "./productRevenue";

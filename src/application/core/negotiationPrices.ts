@@ -1,6 +1,6 @@
-import { LocationPrice } from "../domain/locationPrice";
-import { CityPrice } from "../domain/cityPrice";
-import { StatePrice } from "../domain/statePrice";
+import { LocationPrice } from "../../domain/locationPrice";
+import { CityPrice } from "../../domain/cityPrice";
+import { StatePrice } from "../../domain/statePrice";
 
 
 export class NegotiationPrices {

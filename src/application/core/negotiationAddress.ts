@@ -1,6 +1,6 @@
-import { Location } from "../domain/location";
-import { City } from "../domain/city";
-import { State } from "../domain/state";
+import { Location } from "../../domain/location";
+import { City } from "../../domain/city";
+import { State } from "../../domain/state";
 
 
 export class NegotiationAddress {

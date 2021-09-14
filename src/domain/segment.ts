@@ -5,5 +5,5 @@ export class Segment {
     constructor({id, name}: Segment) {
         this.id = id;
         this.name = name;
-    }
-}
+    };
+};

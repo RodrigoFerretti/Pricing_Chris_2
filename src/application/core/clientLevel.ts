@@ -1,5 +1,5 @@
-import { Client } from "../domain/client";
-import { ClientRepository } from "../infra/repository/clientRepository";
+import { Client } from "../../domain/client";
+import { ClientRepository } from "../../infra/repository/clientRepository";
 
 
 export class ClientLevel {
