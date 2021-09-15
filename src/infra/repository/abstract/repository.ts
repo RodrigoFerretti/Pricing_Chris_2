@@ -1,17 +1,17 @@
 import { IRepository } from "../interfaces/iRepository"
-import { TableMap } from "../../mappers/interfaces/TableMap"
+import { iTableMap } from "../../mappers/interfaces/iTableMap"
 import { Query } from "../../database/query"
 import { Filter } from "../types/filter";
 
 
-export abstract class Repository<T, PK extends (keyof T)[]> implements IRepository<T, PK> {
-    private tableMap: TableMap<T>;
+export abstract class Repository<T extends PK, PK> implements IRepository<T, PK> {
+    private tableMap: iTableMap<T>;
 
-    constructor(tableMap: TableMap<T>) {
+    constructor(tableMap: iTableMap<T>) {
         this.tableMap = tableMap;
     };
 
-    public async getById(primaryKeys: Pick<T, PK[number]>) {
+    public async getById(primaryKeys: PK) {
         const query: Query<T> = new Query<T>(this.tableMap).select().where(primaryKeys);
         const entity: T = await query.first();
         return entity;

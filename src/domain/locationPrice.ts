@@ -1,4 +1,4 @@
-export class LocationPrice {
+export class LocationPrice implements ILocationPricePK {
     productId: number;
     locationId: number;
     segmentId: number;

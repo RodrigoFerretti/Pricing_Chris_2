@@ -1,8 +1,8 @@
 import { City } from "../../domain/city"
-import { TableMap } from "./interfaces/TableMap"
+import { iTableMap } from "./interfaces/iTableMap"
 
 
-export class CityMap implements TableMap<City> {
+export class CityMap implements iTableMap<City> {
     name = `city`;
     columnsMap = {
         id: `id`,

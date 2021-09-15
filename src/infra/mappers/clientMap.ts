@@ -1,8 +1,8 @@
 import { Client } from "../../domain/client"
-import { TableMap } from "./interfaces/TableMap"
+import { iTableMap } from "./interfaces/iTableMap"
 
 
-export class ClientMap implements TableMap<Client> {
+export class ClientMap implements iTableMap<Client> {
     name = `client`;
     columnsMap = {
         id: `id`,

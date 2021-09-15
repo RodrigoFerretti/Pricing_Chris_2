@@ -1,4 +1,4 @@
-export class City {
+export class City implements IStandardPK {
     id: number;
     name: string;
     stateId: number;

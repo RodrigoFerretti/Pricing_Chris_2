@@ -1,4 +1,4 @@
-export class StatePrice {
+export class StatePrice implements IStatePricePK {
     productId: number;
     stateId: number;
     segmentId: number;

@@ -3,7 +3,7 @@ import { CityPriceMap } from "../mappers/cityPriceMap";
 import { Repository } from "./abstract/repository";
 
 
-export class CityPriceRepository extends Repository<CityPrice, [`productId`, `cityId`, `segmentId`]> {
+export class CityPriceRepository extends Repository<CityPrice, ICityPricePK> {
     constructor() {
         const cityPriceMap: CityPriceMap = new CityPriceMap();
         super(cityPriceMap);

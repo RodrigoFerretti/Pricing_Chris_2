@@ -1,4 +1,4 @@
-export class CityPrice {
+export class CityPrice implements ICityPricePK {
     productId: number;
     cityId: number;
     segmentId: number;

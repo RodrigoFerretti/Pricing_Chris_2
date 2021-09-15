@@ -9,13 +9,14 @@ import { LocationPrice } from "../../domain/locationPrice";
 import { CityPrice } from "../../domain/cityPrice";
 import { StatePrice } from "../../domain/statePrice";
 
-import { ClientLevel } from "./clientLevel";
-import { ProductRevenue } from "./productRevenue";
-import { ProfitsAndLooses } from "./profitsAndLooses";
+import { ClientLevel } from "../client/clientLevel";
+import { ProductRevenue } from "../product/productRevenue";
+import { ProfitsAndLooses } from "../pnl/profitsAndLooses";
 
 import { NegotiationAddress } from "./negotiationAddress";
 import { NegotiationPrices } from "./negotiationPrices";
 import { NegotiationResult } from "./negotiationResult";
+import { NegotiationResponse } from "./negotiationResponse";
 
 
 export class Negotiation {
@@ -49,23 +50,37 @@ export class Negotiation {
         this.prices = new NegotiationPrices(locationPrice, cityPrice, statePrice)
     };
 
-    async getResult() {
+    private async getResult() {
         const clientLevel: number = await new ClientLevel(this.client).getLevel();
         const negotiationLevel: number = (clientLevel > this.seller.type) ? clientLevel : this.seller.type;
         const minimumPrice: number = this.prices.getOrderedArray(`desc`)[negotiationLevel - 1].price;
-        const offerIsHigherThanMinimum: boolean = (this.priceOffer > minimumPrice) ? true : false;
-        const finalPrice: number = (offerIsHigherThanMinimum) ? this.priceOffer : minimumPrice;
-        const revenue: number = new ProductRevenue(this.client, this.product, finalPrice).getRevenue();
+        const offerHigherThanMinimum: boolean = (this.priceOffer > minimumPrice) ? true : false;
+        const finalPrice: number = (offerHigherThanMinimum) ? this.priceOffer : minimumPrice;
+        const revenue: number = await new ProductRevenue(this.client, this.product, finalPrice).getRevenue();
         const profitsAndLooses: ProfitsAndLooses = new ProfitsAndLooses(
-            this.product, revenue, this.prices.locationPrice.transportationPrice
+            this.product, 
+            revenue, 
+            this.prices.locationPrice.transportationPrice
         );
-        const result: NegotiationResult = new NegotiationResult(
+        const negotiationResult: NegotiationResult = new NegotiationResult(
             negotiationLevel, 
             minimumPrice, 
-            offerIsHigherThanMinimum, 
+            offerHigherThanMinimum, 
             finalPrice, 
             profitsAndLooses
         );
-        return result;
+        return negotiationResult;
+    };
+
+    public async getResponse() {
+        const negotiationResult: NegotiationResult = await this.getResult();
+        const negotiationResponse: NegotiationResponse = new NegotiationResponse(
+            {
+                finalPrice: `R$ ${Number(negotiationResult.finalPrice).toFixed(2)}`,
+                offerHigherThanMinimum: negotiationResult.offerHigherThanMinimum,
+                profitsAndLooses: negotiationResult.profitsAndLooses.getFormatted()
+            }
+        );
+        return negotiationResponse;
     };
 };

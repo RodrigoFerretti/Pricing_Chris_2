@@ -1,8 +1,8 @@
 import { Product } from "../../domain/product"
-import { TableMap } from "./interfaces/TableMap"
+import { iTableMap } from "./interfaces/iTableMap"
 
 
-export class ProductMap implements TableMap<Product> {
+export class ProductMap implements iTableMap<Product> {
     name = `product`;
     columnsMap = {
         id: `id`,

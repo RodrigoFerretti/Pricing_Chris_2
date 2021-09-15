@@ -3,8 +3,7 @@ import { SellerMap } from "../mappers/sellerMap";
 import { Repository } from "./abstract/repository";
 
 
-
-export class SellerRepository extends Repository<Seller, [`id`]> {
+export class SellerRepository extends Repository<Seller, IStandardPK> {
     constructor() {
         const sellerMap: SellerMap = new SellerMap();
         super(sellerMap);

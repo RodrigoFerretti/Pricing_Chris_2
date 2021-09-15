@@ -21,9 +21,9 @@ import { CityPriceRepository } from "../infra/repository/cityPriceRepository";
 import { StatePriceRepository } from "../infra/repository/statePriceRepository";
 
 
-import { Negotiation } from "./core/negotiation";
-import { NegotiationRequest } from "./core/negotiationRequest";
-import { NegotiationResult } from "./core/negotiationResult";
+import { Negotiation } from "./negotiation/negotiation";
+import { NegotiationRequest } from "./negotiation/negotiationRequest";
+import { NegotiationResponse } from "./negotiation/negotiationResponse";
 
 
 export class NegotiationService {
@@ -32,43 +32,18 @@ export class NegotiationService {
     constructor(negotiationRequest: NegotiationRequest) {
         this.negotiationRequest = negotiationRequest;
     };
-    async getResult() {
-        const client: Client = await new ClientRepository().getById({
-            id: this.negotiationRequest.clientId
-        });
-        const seller: Seller = await new SellerRepository().getById({
-            id: this.negotiationRequest.sellerId
-        });
-        const product: Product = await new ProductRepository().getById({
-            id: this.negotiationRequest.productId
-        });
-        const segment: Segment = await new SegmentRepository().getById({
-            id: client.segmentId
-        });
-        const location: Location = await new LocationRepository().getById({
-            id: client.locationId
-        });
-        const city: City = await new CityRepository().getById({
-            id: location.cityId
-        });
-        const state: State = await new StateRepository().getById({
-            id: city.stateId
-        });
-        const locationPrice: LocationPrice = await new LocationPriceRepository().getById({
-            productId: product.id,
-            locationId: location.id,
-            segmentId: segment.id,
-        });
-        const cityPrice: CityPrice = await new CityPriceRepository().getById({
-            productId: product.id,
-            cityId: city.id,
-            segmentId: segment.id,
-        });
-        const statePrice: StatePrice = await new StatePriceRepository().getById({
-            productId: product.id,
-            stateId: state.id,
-            segmentId: segment.id
-        });
+
+    async getResponse() {
+        const client: Client = await this.getClient();
+        const seller: Seller = await this.getSeller();
+        const product: Product = await this.getProduct();
+        const segment: Segment = await this.getSegment(client);
+        const location: Location = await this.getLocation(client);
+        const city: City = await this.getCity(location);
+        const state: State = await this.getState(city);
+        const locationPrice: LocationPrice = await this.getLocationPrice(product, location, segment);
+        const cityPrice: CityPrice = await this.getCityPrice(product, city, segment);
+        const statePrice: StatePrice = await this.getStatePrice(product, state, segment);
         const negotiation: Negotiation = new Negotiation(
             client, 
             product, 
@@ -82,7 +57,103 @@ export class NegotiationService {
             cityPrice, 
             statePrice
         );
-        const result: NegotiationResult = await negotiation.getResult();
-        return result;
+        const negotiationResponse: NegotiationResponse = await negotiation.getResponse();
+        return negotiationResponse;
+    };
+
+    private async getClient() {
+        const client: Client = await new ClientRepository().getById(
+            {
+                id: this.negotiationRequest.clientId
+            }
+        );
+        return client;
+    };
+
+    private async getSeller() {
+        const seller: Seller = await new SellerRepository().getById(
+            {
+                id: this.negotiationRequest.sellerId
+            }
+        );
+        return seller;     
+    };
+
+    private async getProduct() {
+        const product: Product = await new ProductRepository().getById(
+            {
+                id: this.negotiationRequest.productId
+            }
+        );
+        return product;
+    };
+
+    private async getSegment(client: Client) {
+        const segment: Segment = await new SegmentRepository().getById(
+            {
+                id: client.segmentId
+            }
+        );
+        return segment;
+    };
+
+    private async getLocation(client: Client) {
+        const location: Location = await new LocationRepository().getById(
+            {
+                id: client.locationId
+            }
+        );
+        return location;
+    };
+
+    private async getCity(location: Location) {
+        const city: City = await new CityRepository().getById(
+            {
+                id: location.cityId
+            }
+        );
+        return city;
+    };
+
+    private async getState(city: City) {
+        const state: State = await new StateRepository().getById(
+            {
+                id: city.stateId
+            }
+        );
+        return state;
+    };
+
+    private async getLocationPrice(product: Product, location: Location, segment: Segment) {
+        const locationPrice: LocationPrice = await new LocationPriceRepository().getById(
+            {
+                productId: product.id,
+                locationId: location.id,
+                segmentId: segment.id,
+            }
+        );
+        return locationPrice;
+    };
+
+    private async getCityPrice(product: Product, city: City, segment: Segment) {
+        const cityPrice: CityPrice = await new CityPriceRepository().getById(
+            {
+                productId: product.id,
+                cityId: city.id,
+                segmentId: segment.id,
+            }
+        );
+        return cityPrice;
+    };
+
+    private async getStatePrice(product: Product, state: State, segment: Segment) {
+        const statePrice: StatePrice = await new StatePriceRepository().getById(
+            {
+                productId: product.id,
+                stateId: state.id,
+                segmentId: segment.id
+            }
+        );
+        return statePrice;
     };
 };

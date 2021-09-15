@@ -1,4 +1,4 @@
-export class Segment {
+export class Segment implements IStandardPK {
     id: number;
     name: string;
 

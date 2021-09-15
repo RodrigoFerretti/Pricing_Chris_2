@@ -1,7 +1,7 @@
 import { columnsMap } from "../types/columnsMap";
 
 
-export interface TableMap<T> {
+export interface iTableMap<T> {
     name: string;
     columnsMap: columnsMap<T>;
 };

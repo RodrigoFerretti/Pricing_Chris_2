@@ -1,8 +1,8 @@
 import { State } from "../../domain/state"
-import { TableMap } from "./interfaces/TableMap"
+import { iTableMap } from "./interfaces/iTableMap"
 
 
-export class StateMap implements TableMap<State> {
+export class StateMap implements iTableMap<State> {
     name = `state`;
     columnsMap = {
         id: `id`,

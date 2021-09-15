@@ -1,4 +1,4 @@
-export class Location {
+export class Location implements IStandardPK {
     id: number;
     name: string;
     cityId: number;

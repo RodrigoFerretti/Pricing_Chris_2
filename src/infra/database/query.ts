@@ -1,5 +1,5 @@
 import { IQuery } from "./interfaces/iQuery";
-import { TableMap } from "../mappers/interfaces/TableMap"
+import { iTableMap } from "../mappers/interfaces/iTableMap"
 import { Database } from "../database/database"
 
 
@@ -8,7 +8,7 @@ export class Query<T> implements IQuery<T> {
     private tableName: string;
     private tableColumns: Map<string, string>;
 
-    constructor(tableMap: TableMap<T>) {
+    constructor(tableMap: iTableMap<T>) {
         this.tableName = tableMap.name;
         this.tableColumns = new Map(Object.entries(tableMap.columnsMap));
     };
@@ -39,7 +39,7 @@ export class Query<T> implements IQuery<T> {
 
     public async first() {
         this.sql += ` LIMIT 1`
-        const connection = await new Database().connect();
+        const connection = await Database.getConnection();
         const [rows]: object[] = await connection.query(this.sql);
         const rowsResult: T[] = JSON.parse(JSON.stringify(rows));
         const firstRow: T | null = (rowsResult[0] == undefined) ? null : rowsResult[0];

@@ -1,12 +1,10 @@
 import { Seller } from "../../domain/seller"
-import { TableMap } from "./interfaces/TableMap"
-import { columnsMap } from "./interfaces/TableMap"
+import { iTableMap } from "./interfaces/iTableMap"
 
 
-export class SellerMap implements TableMap<Seller> {
-    name: string = `seller`;
-    primaryKeys: (keyof Seller)[] =  [`id`];
-    columnsMap: columnsMap<Seller> = {
+export class SellerMap implements iTableMap<Seller> {
+    name= `seller`;
+    columnsMap = {
         id: `id`,
         name: `name`,
         type: `type`

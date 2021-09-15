@@ -1,8 +1,8 @@
 import { LocationPrice } from "../../domain/locationPrice"
-import { TableMap } from "./interfaces/TableMap"
+import { iTableMap } from "./interfaces/iTableMap"
 
 
-export class LocationPriceMap implements TableMap<LocationPrice> {
+export class LocationPriceMap implements iTableMap<LocationPrice> {
     name = `locationprice`;
     columnsMap = {
         productId: `product_id`,
