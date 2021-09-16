@@ -4,14 +4,14 @@ import { Query } from "../../database/query"
 import { Filter } from "../types/filter";
 
 
-export abstract class Repository<T extends PK, PK> implements IRepository<T, PK> {
+export abstract class Repository<T, PK extends readonly (keyof T)[]> implements IRepository<T, PK> {
     private tableMap: iTableMap<T>;
 
     constructor(tableMap: iTableMap<T>) {
         this.tableMap = tableMap;
     };
 
-    public async getById(primaryKeys: PK) {
+    public async getById(primaryKeys: Pick<T, PK[number]>) {
         const query: Query<T> = new Query<T>(this.tableMap).select().where(primaryKeys);
         const entity: T = await query.first();
         return entity;

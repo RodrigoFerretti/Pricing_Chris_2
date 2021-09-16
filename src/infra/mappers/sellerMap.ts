@@ -3,10 +3,11 @@ import { iTableMap } from "./interfaces/iTableMap"
 
 
 export class SellerMap implements iTableMap<Seller> {
-    name= `seller`;
-    columnsMap = {
+    public name = `seller`;
+    public columnsMap = {
         id: `id`,
         name: `name`,
         type: `type`
     };
+    static primaryKeys = [`id`] as const;
 };

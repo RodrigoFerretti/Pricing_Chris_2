@@ -1,4 +1,4 @@
-export class Client implements IStandardPK {
+export class Client {
     id: number;
     name: string;
     tpv: number;

@@ -1,4 +1,4 @@
-export class State implements IStandardPK {
+export class State {
     id: number;
     name: string;
 

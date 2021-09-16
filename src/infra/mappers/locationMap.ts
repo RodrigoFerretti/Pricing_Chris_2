@@ -3,11 +3,12 @@ import { iTableMap } from "./interfaces/iTableMap"
 
 
 export class LocationMap implements iTableMap<Location> {
-    name = `location`;
-    columnsMap = {
+    public name = `location`;
+    public columnsMap = {
         id: `id`,
         name: `name`,
         cityId: `city_id`,
         stateId: `state_id`
     };
+    static primaryKeys = [`id`] as const;
 };

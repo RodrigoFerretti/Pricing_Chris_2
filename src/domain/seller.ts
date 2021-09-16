@@ -1,4 +1,4 @@
-export class Seller implements IStandardPK {
+export class Seller {
     id: number;
     name: string;
     type: number;

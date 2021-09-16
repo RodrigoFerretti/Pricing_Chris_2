@@ -3,9 +3,10 @@ import { iTableMap } from "./interfaces/iTableMap"
 
 
 export class SegmentMap implements iTableMap<Segment> {
-    name = `segment`;
-    columnsMap = {
+    public name = `segment`;
+    public columnsMap = {
         id: `id`,
         name: `name`,
     };
+    static primaryKeys = [`id`] as const;
 };

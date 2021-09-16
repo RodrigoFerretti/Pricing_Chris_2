@@ -1,3 +1,0 @@
-interface IStandardPK {
-    id: number;
-};

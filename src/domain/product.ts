@@ -1,4 +1,4 @@
-export class Product implements IStandardPK {
+export class Product {
     id: number;
     name: string;
     fabricationCosts: number;
