@@ -8,5 +8,5 @@ export class SegmentMap implements iTableMap<Segment> {
         id: `id`,
         name: `name`,
     };
-    static primaryKeys = [`id`] as const;
+    public primaryKeys = [`id`] as const;
 };

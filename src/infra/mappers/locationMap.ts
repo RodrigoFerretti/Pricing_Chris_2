@@ -10,5 +10,5 @@ export class LocationMap implements iTableMap<Location> {
         cityId: `city_id`,
         stateId: `state_id`
     };
-    static primaryKeys = [`id`] as const;
+    public primaryKeys = [`id`] as const;
 };

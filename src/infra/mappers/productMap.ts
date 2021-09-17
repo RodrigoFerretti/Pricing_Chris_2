@@ -9,5 +9,5 @@ export class ProductMap implements iTableMap<Product> {
         name: `name`,
         fabricationCosts: `fabrication_costs`
     };
-    static primaryKeys = [`id`] as const;
+    public primaryKeys = [`id`] as const;
 };

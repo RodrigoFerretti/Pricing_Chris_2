@@ -8,5 +8,5 @@ export class StateMap implements iTableMap<State> {
         id: `id`,
         name: `name`
     };
-    static primaryKeys = [`id`] as const;
+    public primaryKeys = [`id`] as const;
 };

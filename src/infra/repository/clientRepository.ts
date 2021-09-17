@@ -3,7 +3,7 @@ import { ClientMap } from "../mappers/clientMap";
 import { Repository } from "./abstract/repository";
 
 
-export class ClientRepository extends Repository<Client, typeof ClientMap.primaryKeys> {
+export class ClientRepository extends Repository<Client, ClientMap[`primaryKeys`]> {
     constructor() {
         const clientMap: ClientMap = new ClientMap();
         super(clientMap);

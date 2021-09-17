@@ -9,5 +9,5 @@ export class SellerMap implements iTableMap<Seller> {
         name: `name`,
         type: `type`
     };
-    static primaryKeys = [`id`] as const;
+    public primaryKeys = [`id`] as const;
 };

@@ -9,5 +9,5 @@ export class CityMap implements iTableMap<City> {
         name: `name`,
         stateId: `state_id`
     };
-    static primaryKeys = [`id`] as const;
+    public primaryKeys = [`id`] as const;
 };

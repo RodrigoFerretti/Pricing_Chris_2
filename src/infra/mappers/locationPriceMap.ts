@@ -11,5 +11,5 @@ export class LocationPriceMap implements iTableMap<LocationPrice> {
         price: `price`,
         transportationPrice: `transportation_price`
     };
-    static primaryKeys = [`productId`, `locationId`, `segmentId`] as const;
+    public primaryKeys = [`productId`, `locationId`, `segmentId`] as const;
 };

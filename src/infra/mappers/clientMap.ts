@@ -11,5 +11,5 @@ export class ClientMap implements iTableMap<Client> {
         locationId: `location_id`,
         segmentId: `segment_id`
     };
-    static primaryKeys = [`id`] as const;
+    public primaryKeys = [`id`] as const;
 };
