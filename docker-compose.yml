@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  mysql-database:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: pedregulho
+      MYSQL_USER: pedregulho_user
+      MYSQL_PASSWORD: pedregulho_password
+      MYSQL_ROOT_PASSWORD: pedregulho_password
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
