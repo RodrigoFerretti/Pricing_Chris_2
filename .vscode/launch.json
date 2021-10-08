@@ -10,20 +10,5 @@
             "request": "launch",
             "type": "node-terminal"
         }
-        // {
-        //     "type": "pwa-node",
-        //     "request": "launch",
-        //     "name": "Launch Program",
-        //     "skipFiles": [
-        //         "<node_internals>/**",
-        //         "node_modules/**"
-        //     ],
-        //     "console": "integratedTerminal",
-        //     "smartStep": true,
-        //     "program": "${workspaceFolder}/src/app.ts",
-        //     "outFiles": [
-        //         "${workspaceFolder}/**/*.js"
-        //     ]
-        // }
     ]
 }

@@ -1,5 +1,4 @@
 import { Client } from "../../domain/client";
-import { ClientRepository } from "../../infra/repository/clientRepository";
 
 
 export class ClientLevel {
@@ -9,18 +8,17 @@ export class ClientLevel {
         this.client = client;
     };
 
-    async getLevel() {
-        const clientHighestTPV: Client = await new ClientRepository().getFirst({
-            orderBy: {key: `tpv`, sorting: `desc`}
-        });
-        const highestClientTPV: number = clientHighestTPV.tpv;
-        const level: number = (this.client.tpv <= highestClientTPV / 3) 
-        ? 1 : 
-        (this.client.tpv <= highestClientTPV * 2 / 3) 
-        ? 2 : 
-        (this.client.tpv <= highestClientTPV) 
-        ? 3 
-        : 1;
+    public getLevel() {
+        let level: number;
+        if (this.client.tpv <= 5000) {
+            level = 1;
+        }
+        else if (this.client.tpv <= 7000) {
+            level = 2;
+        }
+        else {
+            level = 3;
+        }
         return level;
     };
 };

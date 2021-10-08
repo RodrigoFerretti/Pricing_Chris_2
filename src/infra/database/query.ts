@@ -1,9 +1,8 @@
-import { IQuery } from "./interfaces/iQuery";
 import { iTableMap } from "../mappers/interfaces/iTableMap"
 import { Database } from "../database/database"
 
 
-export class Query<T> implements IQuery<T> {
+export class Query<T> {
     private sql!: string;
     private tableName: string;
     private tableColumns: Map<string, string>;
@@ -15,20 +14,20 @@ export class Query<T> implements IQuery<T> {
 
     public select() {
         const columns: string = Array.from(
-            this.tableColumns, ([key, value]) => 
-            `${value} ${key}`
+            this.tableColumns, 
+            ([key, value]) => `${value} ${key}`
         ).join(`, `);
         const sql: string = `SELECT ${columns} FROM ${this.tableName}`;
         this.sql = sql;
         return this;
-    }
+    };
 
     public where(properties: Partial<T>) {
         const columnsEquals: string = Array.from(
-            new Map(Object.entries(properties)), ([key, value]) => 
-            `${this.tableName}.${this.tableColumns.get(key)} = '${value}'`
+            new Map(Object.entries(properties)),
+            ([key, value]) => `${this.tableName}.${this.tableColumns.get(key)} = '${value}'`
         ).join(` AND `);
-        this.sql = (columnsEquals != undefined) ? `${this.sql} WHERE ${columnsEquals}` : this.sql;
+        this.sql = (columnsEquals !== '') ? `${this.sql} WHERE ${columnsEquals}` : this.sql;
         return this;
     };
 
@@ -38,11 +37,10 @@ export class Query<T> implements IQuery<T> {
     };
 
     public async first() {
-        this.sql += ` LIMIT 1`
+        this.sql += ` LIMIT 1`;
         const connection = await Database.getConnection();
-        const [rows]: object[] = await connection.query(this.sql);
-        const rowsResult: T[] = JSON.parse(JSON.stringify(rows));
-        const firstRow: T | null = (rowsResult[0] == undefined) ? null : rowsResult[0];
-        return (firstRow == null) ? Promise.reject(`${this.tableName} not found`) : firstRow
+        const [rows]: [T[], any] = await connection.query(this.sql) as [T[], any];
+        const firstRow: T = rows[0]; 
+        return firstRow ?? Promise.reject(`${this.tableName} not found`);
     };
 };
