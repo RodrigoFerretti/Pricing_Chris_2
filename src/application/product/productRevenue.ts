@@ -13,7 +13,7 @@ export class ProductRevenue {
         this.price = finalPrice;
     };
 
-    async getRevenue() {
+    public getRevenue() {
         let revenue: number;
         if (this.product.id == 1) {
             revenue = this.price * this.client.tpv / 10;
@@ -27,6 +27,6 @@ export class ProductRevenue {
             revenue = this.price
             return revenue;
         };
-        return Promise.reject(`product revenue not found`)
+        throw Error(`product revenue not found`);
     };
 };

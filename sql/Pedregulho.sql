@@ -221,6 +221,21 @@ DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
 
+-- -----------------------------------------------------
+-- Table `pedregulho`.`tpv_ranges`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `pedregulho`.`tpv_range` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `level` INT NOT NULL,
+  `min_value` INT NOT NULL,
+  `max_value` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -343,3 +358,7 @@ INSERT INTO `pedregulho`.`stateprice` (`product_id`, `state_id`, `segment_id`, `
 INSERT INTO `pedregulho`.`seller` (`id`, `name`, `type`) VALUES ('1', 'Seller 1', '1');
 INSERT INTO `pedregulho`.`seller` (`id`, `name`, `type`) VALUES ('2', 'Seller 2', '2');
 INSERT INTO `pedregulho`.`seller` (`id`, `name`, `type`) VALUES ('3', 'Seller 3', '3');
+
+INSERT INTO `pedregulho`.`tpv_range` (`id`, `level`, `min_value`, `max_value`) VALUES ('1', '1', '0', '4999');
+INSERT INTO `pedregulho`.`tpv_range` (`id`, `level`, `min_value`, `max_value`) VALUES ('2', '2', '5000', '6999');
+INSERT INTO `pedregulho`.`tpv_range` (`id`, `level`, `min_value`, `max_value`) VALUES ('3', '3', '7000', '9999');

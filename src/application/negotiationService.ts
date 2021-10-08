@@ -24,6 +24,8 @@ import { StatePriceRepository } from "../infra/repository/statePriceRepository";
 import { Negotiation } from "./negotiation/negotiation";
 import { NegotiationRequest } from "./negotiation/negotiationRequest";
 import { NegotiationResponse } from "./negotiation/negotiationResponse";
+import { TPVRange } from "../domain/tpvRange";
+import { TPVRangeRepository } from "../infra/repository/tpvRangeRepository";
 
 
 export class NegotiationService {
@@ -44,6 +46,7 @@ export class NegotiationService {
         const locationPrice: LocationPrice = await this.getLocationPrice(product, location, segment);
         const cityPrice: CityPrice = await this.getCityPrice(product, city, segment);
         const statePrice: StatePrice = await this.getStatePrice(product, state, segment);
+        const tpvRange: TPVRange = await this.getTPVRange(client);
         const negotiation: Negotiation = new Negotiation(
             client, 
             product, 
@@ -55,7 +58,8 @@ export class NegotiationService {
             state, 
             locationPrice, 
             cityPrice, 
-            statePrice
+            statePrice,
+            tpvRange
         );
         const negotiationResponse: NegotiationResponse = await negotiation.getResponse();
         return negotiationResponse;
@@ -155,5 +159,10 @@ export class NegotiationService {
             }
         );
         return statePrice;
+    };
+
+    private async getTPVRange(client: Client) {
+        const tpvRange: TPVRange = await new TPVRangeRepository().getByTPV(client.tpv);
+        return tpvRange;
     };
 };

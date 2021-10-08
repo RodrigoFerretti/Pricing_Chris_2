@@ -11,14 +11,14 @@ export class ClientLevel {
     public getLevel() {
         let level: number;
         if (this.client.tpv <= 5000) {
-            level = 1;
+            return level = 1;
         }
         else if (this.client.tpv <= 7000) {
-            level = 2;
+            return level = 2;
         }
-        else {
-            level = 3;
+        else if (this.client.tpv <= 10000) {
+            return level = 3;
         }
-        return level;
+        throw Error(`client level not found`);
     };
 };

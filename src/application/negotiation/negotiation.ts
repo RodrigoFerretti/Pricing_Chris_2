@@ -17,6 +17,7 @@ import { NegotiationAddress } from "./negotiationAddress";
 import { NegotiationPrices } from "./negotiationPrices";
 import { NegotiationResult } from "./negotiationResult";
 import { NegotiationResponse } from "./negotiationResponse";
+import { TPVRange } from "../../domain/tpvRange";
 
 
 export class Negotiation {
@@ -27,6 +28,7 @@ export class Negotiation {
     segment: Segment;
     address: NegotiationAddress;
     prices: NegotiationPrices;
+    tpvRange: TPVRange;
 
     constructor(
         client: Client, 
@@ -39,7 +41,8 @@ export class Negotiation {
         state: State, 
         locationPrice: LocationPrice, 
         cityPrice: CityPrice, 
-        statePrice: StatePrice
+        statePrice: StatePrice,
+        tpvRange: TPVRange
     ) {
         this.client = client;
         this.product = product;
@@ -48,10 +51,11 @@ export class Negotiation {
         this.segment = segment;
         this.address = new NegotiationAddress(location, city, state);
         this.prices = new NegotiationPrices(locationPrice, cityPrice, statePrice)
+        this.tpvRange = tpvRange;
     };
 
     private async getResult() {
-        const clientLevel: number = await new ClientLevel(this.client).getLevel();
+        const clientLevel: number = this.tpvRange.level;
         const negotiationLevel: number = (clientLevel > this.seller.type) ? clientLevel : this.seller.type;
         const minimumPrice: number = this.prices.getOrderedArray(`desc`)[negotiationLevel - 1].price;
         const offerHigherThanMinimum: boolean = (this.priceOffer > minimumPrice) ? true : false;

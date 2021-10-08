@@ -1,5 +1,6 @@
 import { iTableMap } from "../mappers/interfaces/iTableMap"
 import { Database } from "../database/database"
+import { Where, WhereValue } from "../repository/types/filter";
 
 
 export class Query<T> {
@@ -15,17 +16,34 @@ export class Query<T> {
     public select() {
         const columns: string = Array.from(
             this.tableColumns, 
-            ([key, value]) => `${value} ${key}`
+            ([key, value]) => `${value} '${key}'`
         ).join(`, `);
         const sql: string = `SELECT ${columns} FROM ${this.tableName}`;
         this.sql = sql;
         return this;
     };
 
-    public where(properties: Partial<T>) {
+    public where(properties: Where<T>) {
         const columnsEquals: string = Array.from(
-            new Map(Object.entries(properties)),
-            ([key, value]) => `${this.tableName}.${this.tableColumns.get(key)} = '${value}'`
+            new Map(Object.entries(properties)) as Map<string, WhereValue<T, keyof T>>,
+            ([key, value]) => {
+                let tableColumn: string = `${this.tableName}.${this.tableColumns.get(key)}`;
+                if (typeof value === `object`){
+                    if (`higherThan` in value) {
+                        return `${tableColumn} > '${value.higherThan}'`
+                    }
+                    else if (`lowerThan` in value) {
+                        return `${tableColumn} < '${value.lowerThan}'`
+                    }
+                    else if (`higherEqualThan` in value) {
+                        return `${tableColumn} >= '${value.higherEqualThan}'`
+                    }
+                    else if (`lowerEqualThan` in value) {
+                        return `${tableColumn} <= '${value.lowerEqualThan}'`
+                    }
+                }
+                return `${tableColumn}  = '${value}'`
+            }
         ).join(` AND `);
         this.sql = (columnsEquals !== '') ? `${this.sql} WHERE ${columnsEquals}` : this.sql;
         return this;
