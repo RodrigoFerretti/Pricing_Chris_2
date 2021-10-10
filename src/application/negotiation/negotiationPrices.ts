@@ -15,12 +15,15 @@ export class NegotiationPrices {
     };
 
     getOrderedArray(sorting: `asc` | `desc` = `asc`) {
-        const prices: [LocationPrice, CityPrice, StatePrice] = [
+        const prices: (LocationPrice | CityPrice | StatePrice)[] = [
             this.locationPrice, 
             this.cityPrice, 
             this.statePrice
         ];
-        if (sorting === `asc`)  return prices.sort((current, next) => next.price - current.price);
-        if (sorting === `desc`) return prices.sort((current, next) => current.price - next.price);
+        return prices.sort((current, next) => 
+        {
+            return (sorting === `asc`) ? next.price - current.price : current.price - next.price
+        }
+        );
     };
 };

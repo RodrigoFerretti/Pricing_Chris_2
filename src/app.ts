@@ -8,7 +8,7 @@ const main = async () => {
     const negotiationRequest: NegotiationRequest = new NegotiationRequest(
         {
             clientId: 1,
-            sellerId: 3,
+            sellerId: 1,
             productId: 1,
             priceOffer: 0
         }

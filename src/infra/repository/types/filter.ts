@@ -12,7 +12,5 @@ export type Where<T> = {
 
 export type Comparison<T, P extends keyof T> = 
     T[P] | 
-    { higherThan: number } | 
-    { lowerThan: number } | 
-    { higherEqualThan: number } | 
-    { lowerEqualThan: number }
+    { higherThan: number } | { lowerThan: number } | 
+    { higherEqualThan: number } | { lowerEqualThan: number }

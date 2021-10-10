@@ -15,18 +15,9 @@ export class ProductRevenue {
 
     getRevenue() {
         let revenue: number;
-        if (this.product.id == 1) {
-            revenue = this.price * this.client.tpv / 10;
-            return revenue;
-        }
-        else if (this.product.id == 2) {
-            revenue = this.price / 10;
-            return revenue;
-        }
-        else if (this.product.id == 3) {
-            revenue = this.price
-            return revenue;
-        };
+        if (this.product.id == 1) return revenue = this.price * this.client.tpv / 10;
+        if (this.product.id == 2) return revenue = this.price / 10;
+        if (this.product.id == 3) return revenue = this.price
         throw Error(`product revenue not found`);
     };
 };

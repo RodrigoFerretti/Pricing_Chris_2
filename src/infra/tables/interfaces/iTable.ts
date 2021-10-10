@@ -1,8 +1,7 @@
-import { tableColumns } from "../types/tableColumns";
-
-
 export interface iTable<T> {
     name: string;
-    columns: tableColumns<T>;
+    columns: {
+        [Property in keyof T]: string;
+    };
     primaryKeys: readonly (keyof T)[];
 };

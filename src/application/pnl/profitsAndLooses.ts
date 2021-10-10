@@ -22,9 +22,9 @@ export class ProfitsAndLooses {
             {
                 revenue: `R$ ${Number(this.revenue).toFixed(2).toString()}`,
                 expenses: `R$ ${Number(this.expenses).toFixed(2).toString()}`,
-                expensesPercentage: `${(this.expensesPercentage * 100).toString()}%`,
+                expensesPercentage: `${(this.expensesPercentage * 100).toFixed(2).toString()}%`,
                 profit: `R$ ${Number(this.profit).toFixed(2).toString()}`,
-                profitPercentage: `${(this.profitPercentage * 100).toString()}%`
+                profitPercentage: `${(this.profitPercentage * 100).toFixed(2).toString()}%`
             }
         );
         return pnlFormatted;

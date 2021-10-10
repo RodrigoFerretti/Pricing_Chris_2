@@ -16,8 +16,7 @@ export class Query<T> {
             Object.entries(this.table.columns) as [keyof T, string][], 
             ([key, value]) => `${value} '${key}'`
         ).join(`, `);
-        const sql: string = `SELECT ${columns} FROM ${this.table.name}`;
-        this.sql = sql;
+        this.sql = `SELECT ${columns} FROM ${this.table.name}`;
         return this;
     };
 
