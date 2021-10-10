@@ -1,15 +1,15 @@
 import { CityPrice } from "../../domain/cityPrice";
-import { CityPriceMap } from "../mappers/cityPriceMap";
+import { CityPriceTable } from "../tables/cityPriceTable";
 import { Repository } from "./abstract/repository";
 
 
 export class CityPriceRepository extends Repository<CityPrice> {
     constructor() {
-        const cityPriceMap: CityPriceMap = new CityPriceMap();
+        const cityPriceMap: CityPriceTable = new CityPriceTable();
         super(cityPriceMap);
     };
 
-    public async getById(primaryKeys: Pick<CityPrice, CityPriceMap['primaryKeys'][number]>) {
-        return await super.getById<CityPriceMap['primaryKeys']>(primaryKeys);
+    async getById(primaryKeys: Pick<CityPrice, CityPriceTable['primaryKeys'][number]>) {
+        return await super.getById<CityPriceTable['primaryKeys']>(primaryKeys);
     };
 };

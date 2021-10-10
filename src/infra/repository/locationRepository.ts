@@ -1,15 +1,15 @@
 import { Location } from "../../domain/location";
-import { LocationMap } from "../mappers/locationMap";
+import { LocationTable } from "../tables/locationTable";
 import { Repository } from "./abstract/repository";
 
 
 export class LocationRepository extends Repository<Location> {
     constructor() {
-        const locationMap: LocationMap = new LocationMap();
+        const locationMap: LocationTable = new LocationTable();
         super(locationMap);
     };
 
-    public async getById(primaryKeys: Pick<Location, LocationMap['primaryKeys'][number]>) {
-        return await super.getById<LocationMap['primaryKeys']>(primaryKeys);
+    async getById(primaryKeys: Pick<Location, LocationTable['primaryKeys'][number]>) {
+        return await super.getById<LocationTable['primaryKeys']>(primaryKeys);
     };
 };

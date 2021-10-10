@@ -1,64 +1,55 @@
-import { iTableMap } from "../mappers/interfaces/iTableMap"
+import { iTable } from "../tables/interfaces/iTable"
 import { Database } from "../database/database"
-import { Where, WhereValue } from "../repository/types/filter";
+import { Where, Comparison } from "../repository/types/filter";
 
 
 export class Query<T> {
-    private sql!: string;
-    private tableName: string;
-    private tableColumns: Map<string, string>;
+    sql!: string;
+    table: iTable<T>;
 
-    constructor(tableMap: iTableMap<T>) {
-        this.tableName = tableMap.name;
-        this.tableColumns = new Map(Object.entries(tableMap.columnsMap));
+    constructor(table: iTable<T>) {
+        this.table = table;
     };
 
-    public select() {
+    select() {
         const columns: string = Array.from(
-            this.tableColumns, 
+            Object.entries(this.table.columns) as [keyof T, string][], 
             ([key, value]) => `${value} '${key}'`
         ).join(`, `);
-        const sql: string = `SELECT ${columns} FROM ${this.tableName}`;
+        const sql: string = `SELECT ${columns} FROM ${this.table.name}`;
         this.sql = sql;
         return this;
     };
 
-    public where(properties: Where<T>) {
-        const columnsEquals: string = Array.from(
-            new Map(Object.entries(properties)) as Map<string, WhereValue<T, keyof T>>,
-            ([key, value]) => {
-                let tableColumn: string = `${this.tableName}.${this.tableColumns.get(key)}`;
-                if (typeof value === `object`){
-                    if (`higherThan` in value) {
-                        return `${tableColumn} > '${value.higherThan}'`
-                    }
-                    else if (`lowerThan` in value) {
-                        return `${tableColumn} < '${value.lowerThan}'`
-                    }
-                    else if (`higherEqualThan` in value) {
-                        return `${tableColumn} >= '${value.higherEqualThan}'`
-                    }
-                    else if (`lowerEqualThan` in value) {
-                        return `${tableColumn} <= '${value.lowerEqualThan}'`
-                    }
-                }
-                return `${tableColumn}  = '${value}'`
+    where(properties: Where<T>) {
+        const fullComparison: string = Array.from(
+            Object.entries(properties) as [keyof T, Comparison<T, keyof T>][],
+            ([key, comparison]) => 
+            {
+                let tableColumn: string = `${this.table.name}.${this.table.columns[key]}`;
+                if (typeof comparison === `object`) {
+                    if (`higherThan` in comparison)      return `${tableColumn} > '${comparison.higherThan}'`
+                    if (`lowerThan` in comparison)       return `${tableColumn} < '${comparison.lowerThan}'`
+                    if (`higherEqualThan` in comparison) return `${tableColumn} >= '${comparison.higherEqualThan}'`
+                    if (`lowerEqualThan` in comparison)  return `${tableColumn} <= '${comparison.lowerEqualThan}'`
+                };
+                return `${tableColumn}  = '${comparison}'`
             }
         ).join(` AND `);
-        this.sql = (columnsEquals !== '') ? `${this.sql} WHERE ${columnsEquals}` : this.sql;
+        this.sql = (fullComparison !== '') ? `${this.sql} WHERE ${fullComparison}` : this.sql;
         return this;
     };
 
-    public orderBy(key: keyof T, sorting: `asc` | `desc` = `asc`) {
-        this.sql += ` ORDER BY ${this.tableName}.${this.tableColumns.get(key.toString())} ${sorting}`;
+    orderBy(key: keyof T, sorting: `asc` | `desc` = `asc`) {
+        this.sql += ` ORDER BY ${this.table.name}.${this.table.columns[key]} ${sorting}`;
         return this;
     };
 
-    public async first() {
+    async first() {
         this.sql += ` LIMIT 1`;
         const connection = await Database.getConnection();
         const [rows]: [T[], any] = await connection.query(this.sql) as [T[], any];
         const firstRow: T = rows[0]; 
-        return firstRow ?? Promise.reject(`${this.tableName} not found`);
+        return firstRow ?? Promise.reject(`${this.table.name} not found`);
     };
 };

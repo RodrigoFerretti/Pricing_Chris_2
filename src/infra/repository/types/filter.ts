@@ -7,9 +7,12 @@ export type Filter<T> = {
 };
 
 export type Where<T> = {
-    [P in keyof T]?: WhereValue<T, P>
+    [P in keyof T]?: Comparison<T, P>
 }
 
-export type WhereValue<T, P extends keyof T> = 
-    T[P] | { higherThan: number } | { lowerThan: number } | 
-    { higherEqualThan: number } | { lowerEqualThan: number }
+export type Comparison<T, P extends keyof T> = 
+    T[P] | 
+    { higherThan: number } | 
+    { lowerThan: number } | 
+    { higherEqualThan: number } | 
+    { lowerEqualThan: number }

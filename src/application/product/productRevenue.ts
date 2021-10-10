@@ -13,7 +13,7 @@ export class ProductRevenue {
         this.price = finalPrice;
     };
 
-    public getRevenue() {
+    getRevenue() {
         let revenue: number;
         if (this.product.id == 1) {
             revenue = this.price * this.client.tpv / 10;

@@ -1,15 +1,15 @@
 import { Segment } from "../../domain/segment";
-import { SegmentMap } from "../mappers/segmentMap";
+import { SegmentTable } from "../tables/segmentTable";
 import { Repository } from "./abstract/repository";
 
 
 export class SegmentRepository extends Repository<Segment> {
     constructor() {
-        const segmentMap: SegmentMap = new SegmentMap();
+        const segmentMap: SegmentTable = new SegmentTable();
         super(segmentMap);
     };
 
-    public async getById(primaryKeys: Pick<Segment, SegmentMap['primaryKeys'][number]>) {
-        return await super.getById<SegmentMap['primaryKeys']>(primaryKeys);
+    async getById(primaryKeys: Pick<Segment, SegmentTable['primaryKeys'][number]>) {
+        return await super.getById<SegmentTable['primaryKeys']>(primaryKeys);
     };
 };

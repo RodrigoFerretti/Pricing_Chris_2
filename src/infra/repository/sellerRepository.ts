@@ -1,15 +1,15 @@
 import { Seller } from "../../domain/seller";
-import { SellerMap } from "../mappers/sellerMap";
+import { SellerTable } from "../tables/sellerTable";
 import { Repository } from "./abstract/repository";
 
 
 export class SellerRepository extends Repository<Seller> {
     constructor() {
-        const sellerMap: SellerMap = new SellerMap();
+        const sellerMap: SellerTable = new SellerTable();
         super(sellerMap);
     };
 
-    public async getById(primaryKeys: Pick<Seller, SellerMap['primaryKeys'][number]>) {
-        return await super.getById<SellerMap['primaryKeys']>(primaryKeys);
+    async getById(primaryKeys: Pick<Seller, SellerTable['primaryKeys'][number]>) {
+        return await super.getById<SellerTable['primaryKeys']>(primaryKeys);
     };
 };

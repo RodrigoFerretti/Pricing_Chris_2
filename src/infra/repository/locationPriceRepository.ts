@@ -1,15 +1,15 @@
 import { LocationPrice } from "../../domain/locationPrice";
-import { LocationPriceMap } from "../mappers/locationPriceMap";
+import { LocationPriceTable } from "../tables/locationPriceTable";
 import { Repository } from "./abstract/repository";
 
 
 export class LocationPriceRepository extends Repository<LocationPrice> {
     constructor() {
-        const locationPriceMap: LocationPriceMap = new LocationPriceMap();
+        const locationPriceMap: LocationPriceTable = new LocationPriceTable();
         super(locationPriceMap);
     };
 
-    public async getById(primaryKeys: Pick<LocationPrice, LocationPriceMap['primaryKeys'][number]>) {
-        return await super.getById<LocationPriceMap['primaryKeys']>(primaryKeys);
+    async getById(primaryKeys: Pick<LocationPrice, LocationPriceTable['primaryKeys'][number]>) {
+        return await super.getById<LocationPriceTable['primaryKeys']>(primaryKeys);
     };
 };

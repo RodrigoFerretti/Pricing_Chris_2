@@ -17,7 +17,7 @@ export class ProfitsAndLooses {
         this.profitPercentage = parseFloat(Number(this.profit / revenue).toFixed(2));
     };
 
-    public getFormatted() {
+    getFormatted() {
         const pnlFormatted: PNLResponse = new PNLResponse(
             {
                 revenue: `R$ ${Number(this.revenue).toFixed(2).toString()}`,

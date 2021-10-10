@@ -1,15 +1,15 @@
 import { State } from "../../domain/state";
-import { StateMap } from "../mappers/stateMap";
+import { StateTable } from "../tables/stateTable";
 import { Repository } from "./abstract/repository";
 
 
 export class StateRepository extends Repository<State> {
     constructor() {
-        const stateMap: StateMap = new StateMap();
+        const stateMap: StateTable = new StateTable();
         super(stateMap);
     };
 
-    public async getById(primaryKeys: Pick<State, StateMap['primaryKeys'][number]>) {
-        return await super.getById<StateMap['primaryKeys']>(primaryKeys);
+    async getById(primaryKeys: Pick<State, StateTable['primaryKeys'][number]>) {
+        return await super.getById<StateTable['primaryKeys']>(primaryKeys);
     };
 };

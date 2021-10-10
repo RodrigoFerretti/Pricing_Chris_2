@@ -1,15 +1,15 @@
 import { Client } from "../../domain/client";
-import { ClientMap } from "../mappers/clientMap";
+import { ClientTable } from "../tables/clientTable";
 import { Repository } from "./abstract/repository";
 
 
 export class ClientRepository extends Repository<Client> {
     constructor() {
-        const clientMap: ClientMap = new ClientMap();
+        const clientMap: ClientTable = new ClientTable();
         super(clientMap);
     };
 
-    public async getById(primaryKeys: Pick<Client, ClientMap['primaryKeys'][number]>) {
-        return await super.getById<ClientMap['primaryKeys']>(primaryKeys);
+    async getById(primaryKeys: Pick<Client, ClientTable['primaryKeys'][number]>) {
+        return await super.getById<ClientTable['primaryKeys']>(primaryKeys);
     };
 };
