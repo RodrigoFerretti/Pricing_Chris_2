@@ -9,7 +9,7 @@ export class LocationPriceTable implements iTable<LocationPrice> {
         locationId: `location_id`,
         segmentId: `segment_id`,
         price: `price`,
-        transportationPrice: `transportation_price`
+        transportationCost: `transportation_cost`
     };
     primaryKeys = [`productId`, `locationId`, `segmentId`] as const;
 };

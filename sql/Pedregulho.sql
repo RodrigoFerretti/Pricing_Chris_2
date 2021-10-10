@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `pedregulho`.`location_price` (
   `location_id` INT NOT NULL,
   `segment_id` INT NOT NULL,
   `price` DECIMAL(15,2) NOT NULL,
-  `transportation_price` DECIMAL(15,2) NOT NULL,
+  `transportation_cost` DECIMAL(15,2) NOT NULL,
   PRIMARY KEY (`product_id`, `location_id`, `segment_id`),
   INDEX `location_price_product_id_idx` (`product_id` ASC) VISIBLE,
   INDEX `location_price_location_id_idx` (`location_id` ASC) VISIBLE,
@@ -265,35 +265,35 @@ INSERT INTO `pedregulho`.`product` (`id`, `name`, `fabrication_costs`) VALUES ('
 INSERT INTO `pedregulho`.`product` (`id`, `name`, `fabrication_costs`) VALUES ('2', 'Pedra Roxa', '100.00');
 INSERT INTO `pedregulho`.`product` (`id`, `name`, `fabrication_costs`) VALUES ('3', 'Pedra da Sorte', '1000.00');
 
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '1', '1', '001.30', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '2', '1', '001.50', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '3', '1', '002.00', '20.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '1', '1', '230.00', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '2', '1', '250.00', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '3', '1', '270.00', '20.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '1', '1', '300.00', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '2', '1', '330.00', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '3', '1', '350.00', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '1', '1', '001.30', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '2', '1', '001.50', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '3', '1', '002.00', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '1', '1', '230.00', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '2', '1', '250.00', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '3', '1', '270.00', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '1', '1', '300.00', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '2', '1', '330.00', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '3', '1', '350.00', '20.00');
 
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '1', '2', '001.40', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '2', '2', '001.60', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '3', '2', '002.10', '20.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '1', '2', '235.00', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '2', '2', '245.00', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '3', '2', '275.00', '20.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '1', '2', '310.00', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '2', '2', '340.00', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '3', '2', '360.00', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '1', '2', '001.40', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '2', '2', '001.60', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '3', '2', '002.10', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '1', '2', '235.00', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '2', '2', '245.00', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '3', '2', '275.00', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '1', '2', '310.00', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '2', '2', '340.00', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '3', '2', '360.00', '20.00');
 
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '1', '3', '001.50', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '2', '3', '002.00', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('1', '3', '3', '002.20', '20.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '1', '3', '245.00', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '2', '3', '265.00', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('2', '3', '3', '295.00', '20.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '1', '3', '320.00', '40.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '2', '3', '350.00', '30.00');
-INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_price`) VALUES ('3', '3', '3', '370.00', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '1', '3', '001.50', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '2', '3', '002.00', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('1', '3', '3', '002.20', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '1', '3', '245.00', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '2', '3', '265.00', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('2', '3', '3', '295.00', '20.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '1', '3', '320.00', '40.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '2', '3', '350.00', '30.00');
+INSERT INTO `pedregulho`.`location_price` (`product_id`, `location_id`, `segment_id`, `price`, `transportation_cost`) VALUES ('3', '3', '3', '370.00', '20.00');
 
 INSERT INTO `pedregulho`.`city_price` (`product_id`, `city_id`, `segment_id`, `price`) VALUES ('1', '2', '1', '001.60');
 INSERT INTO `pedregulho`.`city_price` (`product_id`, `city_id`, `segment_id`, `price`) VALUES ('1', '3', '1', '002.10');

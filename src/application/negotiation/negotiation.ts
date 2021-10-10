@@ -62,7 +62,7 @@ export class Negotiation {
         const profitsAndLooses: ProfitsAndLooses = new ProfitsAndLooses(
             this.product, 
             revenue, 
-            this.prices.locationPrice.transportationPrice
+            this.prices.locationPrice.transportationCost
         );
         const negotiationResult: NegotiationResult = new NegotiationResult(
             negotiationLevel, 
