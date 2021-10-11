@@ -1,5 +1,4 @@
 import { ProfitsAndLooses } from "../pnl/profitsAndLooses";
-
 import { NegotiationResponse } from "./negotiationResponse";
 
 export class NegotiationResult {

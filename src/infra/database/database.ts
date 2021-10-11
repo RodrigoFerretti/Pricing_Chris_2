@@ -1,5 +1,6 @@
 import { createConnection, Connection } from "mysql2/promise"
 import { config as dotenv } from "dotenv"
+import { HttpException } from "../errors/httpException"
 
 
 export class Database {
@@ -18,7 +19,7 @@ export class Database {
                 }
             ).catch((error) => {
                 console.log(error.message);
-                return Promise.reject(`internal server error`);
+                throw new HttpException(400, `internal server error`);
             });
             this.connection = dbConnection;
         };

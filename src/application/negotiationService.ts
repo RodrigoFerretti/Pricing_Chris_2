@@ -22,7 +22,7 @@ import { StatePriceRepository } from "../infra/repository/statePriceRepository";
 
 
 import { Negotiation } from "./negotiation/negotiation";
-import { NegotiationRequest } from "./negotiation/negotiationRequest";
+import { NegotiationRequest } from "../api/requests/negotiationRequest";
 import { NegotiationResponse } from "./negotiation/negotiationResponse";
 import { TPVRange } from "../domain/tpvRange";
 import { TPVRangeRepository } from "../infra/repository/tpvRangeRepository";

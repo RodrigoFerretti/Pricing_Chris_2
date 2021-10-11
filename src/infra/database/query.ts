@@ -1,6 +1,7 @@
 import { iTable } from "../tables/interfaces/iTable"
 import { Database } from "../database/database"
 import { Where, Comparison } from "../repository/types/filter";
+import { HttpException } from "../errors/httpException"
 
 
 export class Query<T> {
@@ -23,8 +24,7 @@ export class Query<T> {
     where(properties: Where<T>) {
         const fullComparison: string = Array.from(
             Object.entries(properties) as [keyof T, Comparison<T, keyof T>][],
-            ([key, comparison]) => 
-            {
+            ([key, comparison]) => {
                 let tableColumn: string = `${this.table.name}.${this.table.columns[key]}`;
                 if (typeof comparison === `object`) {
                     if (`higherThan` in comparison)      return `${tableColumn} > '${comparison.higherThan}'`
@@ -48,7 +48,8 @@ export class Query<T> {
         this.sql += ` LIMIT 1`;
         const connection = await Database.getConnection();
         const [rows]: [T[], any] = await connection.query(this.sql) as [T[], any];
-        const firstRow: T = rows[0]; 
-        return firstRow ?? Promise.reject(`${this.table.name} not found`);
+        const firstRow: T = rows[0];
+        if (firstRow) return firstRow;
+        throw new HttpException(400, `${this.table.name} not found`);
     };
 };

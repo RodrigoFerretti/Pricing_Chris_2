@@ -20,10 +20,8 @@ export class NegotiationPrices {
             this.cityPrice, 
             this.statePrice
         ];
-        return prices.sort((current, next) => 
-        {
+        return prices.sort((current, next) => {
             return (sorting === `asc`) ? next.price - current.price : current.price - next.price
-        }
-        );
+        });
     };
 };

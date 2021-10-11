@@ -1,9 +1,8 @@
-import { NegotiationRequest } from "./negotiation/negotiationRequest";
+import { NegotiationRequest } from "../api/requests/negotiationRequest";
 import { NegotiationService } from "./negotiationService";
 
 import { Product } from "../domain/product";
 import { Location } from "../domain/location";
-import { Segment } from "../domain/segment";
 import { LocationPrice } from "../domain/locationPrice";
 import { City } from "../domain/city";
 import { CityPrice } from "../domain/cityPrice";

@@ -1,3 +1,4 @@
+import { HttpException } from "../../infra/errors/httpException";
 import { Client } from "../../domain/client";
 import { Product } from "../../domain/product";
 
@@ -18,6 +19,6 @@ export class ProductRevenue {
         if (this.product.id == 1) return revenue = this.price * this.client.tpv / 10;
         if (this.product.id == 2) return revenue = this.price / 10;
         if (this.product.id == 3) return revenue = this.price
-        throw Error(`product revenue not found`);
+        throw new HttpException(400, `product revenue not found`);
     };
 };
